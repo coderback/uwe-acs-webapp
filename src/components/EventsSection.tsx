@@ -7,11 +7,10 @@ import {
   ClockIcon, 
   MapPinIcon, 
   UsersIcon,
-  TicketIcon,
-  FunnelIcon
+  TicketIcon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
-import { formatDate, formatTime } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 
 const events = [
   {

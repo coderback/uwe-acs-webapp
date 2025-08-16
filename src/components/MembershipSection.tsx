@@ -6,9 +6,7 @@ import {
   UsersIcon, 
   GiftIcon, 
   AcademicCapIcon,
-  CalendarIcon,
-  HeartIcon,
-  StarIcon
+  CalendarIcon
 } from '@heroicons/react/24/outline'
 
 const benefits = [

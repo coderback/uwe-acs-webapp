@@ -89,7 +89,7 @@ export default function ContactSection() {
           </h2>
           <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
             Have questions, ideas, or just want to say hello? 
-            We'd love to hear from you and connect with our community.
+            We&apos;d love to hear from you and connect with our community.
           </p>
         </motion.div>
 
@@ -261,7 +261,7 @@ export default function ContactSection() {
               <div className="space-y-3">
                 <div>
                   <p className="font-semibold text-acs-black-900 text-sm">How can I join ACS?</p>
-                  <p className="text-acs-black-600 text-sm">Visit the UWE Students' Union website or contact us directly.</p>
+                  <p className="text-acs-black-600 text-sm">Visit the UWE Students&apos; Union website or contact us directly.</p>
                 </div>
                 <div>
                   <p className="font-semibold text-acs-black-900 text-sm">When are events held?</p>

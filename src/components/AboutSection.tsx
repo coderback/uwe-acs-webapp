@@ -64,9 +64,9 @@ export default function AboutSection() {
               <div className="relative bg-white p-8 rounded-2xl shadow-xl">
                 <h3 className="text-2xl font-bold text-acs-black-900 mb-4">Our Mission</h3>
                 <p className="text-acs-black-600 italic leading-relaxed">
-                  "To be the leading voice for African and Caribbean students at UWE Bristol, 
+                  &ldquo;To be the leading voice for African and Caribbean students at UWE Bristol, 
                   fostering a community where every member feels valued, supported, and proud 
-                  of their heritage while building bridges to a brighter, more inclusive future."
+                  of their heritage while building bridges to a brighter, more inclusive future.&rdquo;
                 </p>
               </div>
             </div>

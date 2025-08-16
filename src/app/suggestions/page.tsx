@@ -324,7 +324,7 @@ export default function Suggestions() {
               <span className="gradient-text">Ideas</span> That Became Reality
             </h2>
             <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
-              Here are some suggestions from our community that we've successfully implemented
+              Here are some suggestions from our community that we&apos;ve successfully implemented
             </p>
           </motion.div>
 
@@ -388,7 +388,7 @@ export default function Suggestions() {
               Every Great Idea Starts with You
             </h2>
             <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Don't hesitate to share your thoughts, no matter how big or small. 
+              Don&apos;t hesitate to share your thoughts, no matter how big or small. 
               Your suggestion could be the next big thing that transforms our community!
             </p>
             <motion.a

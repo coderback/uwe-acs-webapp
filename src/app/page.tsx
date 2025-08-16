@@ -1,8 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { ArrowRightIcon, CalendarIcon, UsersIcon, SparklesIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
+import { ArrowRightIcon, CalendarIcon, UsersIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState } from 'react'
 import AboutSection from '@/components/AboutSection'
 import CommitteeSection from '@/components/CommitteeSection'
@@ -99,7 +98,7 @@ export default function Home() {
               transition={{ duration: 0.8, delay: 0.4 }}
             >
               Celebrating our rich heritage, building lasting connections, and creating unforgettable experiences 
-              at the heart of UWE Bristol's vibrant community.
+              at the heart of UWE Bristol&apos;s vibrant community.
             </motion.p>
 
             <motion.div 
