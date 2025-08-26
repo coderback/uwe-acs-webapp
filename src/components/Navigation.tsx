@@ -1,20 +1,26 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
 import Link from 'next/link'
-import { motion, AnimatePresence } from 'framer-motion'
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
+import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
+import { Bars3Icon, XMarkIcon, SparklesIcon } from '@heroicons/react/24/outline'
 import { cn } from '@/lib/utils'
 
 const navigation = [
   { name: 'Home', href: '#hero' },
-  { name: 'About Us', href: '#about' },
+  { name: 'About', href: '#about' },
   { name: 'Committee', href: '#committee' },
   { name: 'Events', href: '#events' },
   { name: 'Membership', href: '#membership' },
-  { name: 'Suggestions', href: '/suggestions' },
   { name: 'Contact', href: '#contact' },
 ]
+
+const palette = {
+  red: '#E11D48',
+  green: '#16A34A',
+  black: '#0B0B0B',
+}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -23,37 +29,49 @@ export default function Navigation() {
   const [lineStyle, setLineStyle] = useState({ left: 0, width: 0 })
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
+  
+  const { scrollY } = useScroll()
+  const navBackdrop = useTransform(scrollY, [0, 100], [0, 0.8])
+  const navBlur = useTransform(scrollY, [0, 100], [0, 20])
 
-  // Handle scroll effect for navbar background and active section
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10
-      setScrolled(isScrolled)
-      
-      // Check which section is currently in view
-      const sections = ['hero', 'about', 'committee', 'events', 'membership', 'contact']
-      const currentSection = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-      
-      if (currentSection) {
-        setActiveSection(currentSection)
-        // Update line position
-        updateLinePosition(currentSection)
+  // Optimized scroll handler with throttling
+  const handleScroll = useCallback(() => {
+    const isScrolled = window.scrollY > 20
+    setScrolled(isScrolled)
+    
+    // Check which section is currently in view with improved logic
+    const sections = ['hero', 'about', 'committee', 'events', 'membership', 'contact']
+    const currentSection = sections.find(section => {
+      const element = document.getElementById(section)
+      if (element) {
+        const rect = element.getBoundingClientRect()
+        const viewportHeight = window.innerHeight
+        return rect.top <= viewportHeight * 0.3 && rect.bottom >= viewportHeight * 0.3
       }
+      return false
+    })
+    
+    if (currentSection && currentSection !== activeSection) {
+      setActiveSection(currentSection)
+      updateLinePosition(currentSection)
+    }
+  }, [activeSection])
+
+  useEffect(() => {
+    let rafId: number
+    const throttledScroll = () => {
+      rafId = requestAnimationFrame(handleScroll)
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', throttledScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', throttledScroll)
+      cancelAnimationFrame(rafId)
+    }
+  }, [handleScroll])
 
-  // Function to update line position based on active section
-  const updateLinePosition = (section: string) => {
+  // Enhanced line position update with smooth transitions
+  const updateLinePosition = useCallback((section: string) => {
     const activeIndex = navigation.findIndex(item => 
       item.href === `#${section}` || (section === 'hero' && item.href === '#hero')
     )
@@ -70,7 +88,7 @@ export default function Navigation() {
         width: elementRect.width
       })
     }
-  }
+  }, [])
 
   // Initialize line position on mount
   useEffect(() => {
@@ -79,35 +97,50 @@ export default function Navigation() {
 
   return (
     <motion.nav
-      className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-300',
-        scrolled
-          ? 'bg-black/70 backdrop-blur-md shadow-lg'
-          : 'bg-transparent'
-      )}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      className="fixed top-0 w-full z-50"
+      style={{
+        backgroundColor: `rgba(0, 0, 0, ${navBackdrop.get()})`,
+        backdropFilter: `blur(${navBlur.get()}px)`,
+      }}
+      initial={{ y: -100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-transparent">
-        <div className="flex items-center h-16 lg:h-20 bg-transparent">
+      {/* Enhanced background with gradient overlay */}
+      <div className={cn(
+        'absolute inset-0 transition-all duration-500',
+        scrolled 
+          ? 'bg-gradient-to-r from-black/80 via-black/70 to-black/80 shadow-xl border-b border-white/10'
+          : 'bg-transparent'
+      )} />
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center h-16 lg:h-20">
           {/* Logo */}
           <motion.div
-            className="flex-shrink-0"
+            className="flex-shrink-0 relative group"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg lg:text-xl">
-                  ACS
-                </span>
+              {/* Enhanced logo with gradient ring */}
+              <div className="relative">
+                <div className="absolute -inset-1 bg-gradient-to-r from-rose-500 to-green-500 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-300" />
+                <div className="relative bg-black/20 rounded-full p-1 backdrop-blur-sm">
+                  <Image 
+                    src="/logo.jpg"
+                    alt="UWE African Caribbean Society Logo"
+                    width={48}
+                    height={48}
+                    className="w-8 h-8 lg:w-10 lg:h-10 object-contain rounded-full"
+                    priority
+                  />
+                </div>
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-lg lg:text-xl font-bold text-white">
-                  UWE <span className="gradient-text">ACS</span>
+                <h1 className="text-lg lg:text-xl font-bold text-white tracking-tight">
+                  UWE <span className="bg-gradient-to-r from-rose-400 to-green-400 bg-clip-text text-transparent font-extrabold">ACS</span>
                 </h1>
-                <p className="text-xs text-white/80 -mt-1">
+                <p className="text-xs text-white/70 -mt-0.5 font-medium">
                   African Caribbean Society
                 </p>
               </div>
@@ -116,19 +149,23 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:block ml-auto">
-            <div ref={containerRef} className="flex items-baseline space-x-8 relative">
-              {/* Moving Line */}
+            <div ref={containerRef} className="flex items-center space-x-1 relative">
+              {/* Enhanced moving indicator */}
               <motion.div
-                className="absolute -top-8 h-2.5 bg-gradient-to-r from-acs-red-500 to-acs-green-500 rounded-full"
+                className="absolute -bottom-2 h-0.5 rounded-full"
+                style={{
+                  background: `linear-gradient(90deg, ${palette.red}, ${palette.green})`,
+                  boxShadow: `0 0 10px rgba(225, 29, 72, 0.5)`
+                }}
                 animate={{
                   x: lineStyle.left,
                   width: lineStyle.width,
                 }}
                 transition={{ 
                   type: "spring", 
-                  stiffness: 300, 
-                  damping: 30,
-                  duration: 0.5
+                  stiffness: 400, 
+                  damping: 40,
+                  mass: 0.8
                 }}
               />
               
@@ -151,15 +188,22 @@ export default function Navigation() {
                       }}
                       href={item.href}
                       className={cn(
-                        'relative px-3 py-2 text-sm font-medium transition-all duration-300 ease-out',
-                        'text-white hover:text-acs-red-500',
-                        // Active state styling
+                        'relative px-4 py-2 text-sm font-medium transition-all duration-300 ease-out rounded-full',
+                        'text-white/90 hover:text-white hover:bg-white/10',
                         activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')
-                          ? 'text-acs-red-500'
+                          ? 'text-white bg-white/15 shadow-lg'
                           : 'hover:scale-105'
                       )}
                     >
-                      {item.name}
+                      <span className="relative z-10">{item.name}</span>
+                      {/* Active state glow effect */}
+                      {(activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')) && (
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-rose-500/20 to-green-500/20 rounded-full"
+                          layoutId="activeNav"
+                          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                        />
+                      )}
                     </Link>
                   </motion.div>
                 </motion.div>
@@ -168,51 +212,88 @@ export default function Navigation() {
           </div>
 
           {/* Mobile menu button */}
-          <div className="lg:hidden">
+          <div className="lg:hidden ml-auto">
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-acs-red-500 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-acs-red-500"
+              className="relative inline-flex items-center justify-center p-2 rounded-full text-white hover:text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200"
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <span className="sr-only">Open main menu</span>
-              {isOpen ? (
-                <XMarkIcon className="block h-6 w-6" />
-              ) : (
-                <Bars3Icon className="block h-6 w-6" />
-              )}
+              <span className="sr-only">{isOpen ? 'Close' : 'Open'} main menu</span>
+              <div className="relative w-6 h-6">
+                <motion.span
+                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -8 }}
+                />
+                <motion.span
+                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                />
+                <motion.span
+                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
+                  animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 8 }}
+                />
+              </div>
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
+      {/* Enhanced Mobile Navigation Menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="lg:hidden"
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
+            className="lg:hidden overflow-hidden"
+            initial={{ opacity: 0, height: 0, y: -20 }}
+            animate={{ opacity: 1, height: 'auto', y: 0 }}
+            exit={{ opacity: 0, height: 0, y: -20 }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/20 backdrop-blur-md shadow-lg">
+            <motion.div 
+              className="px-4 pt-4 pb-6 space-y-2 bg-black/90 backdrop-blur-xl shadow-2xl border-t border-white/10"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
               {navigation.map((item, index) => (
                 <motion.div
                   key={item.name}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: -30 }}
                   animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1 }}
+                  transition={{ delay: index * 0.08, ease: "easeOut" }}
                 >
                   <Link
                     href={item.href}
-                    className="block px-3 py-2 rounded-md text-base font-medium text-white hover:text-acs-red-500 hover:bg-white/10 transition-colors duration-200"
+                    className={cn(
+                      "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200",
+                      activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')
+                        ? "text-white bg-gradient-to-r from-rose-500/20 to-green-500/20 border border-white/20"
+                        : "text-white/90 hover:text-white hover:bg-white/10"
+                    )}
                     onClick={() => setIsOpen(false)}
                   >
+                    <SparklesIcon className="w-4 h-4 mr-3 opacity-60" />
                     {item.name}
                   </Link>
                 </motion.div>
               ))}
-            </div>
+              
+              {/* Mobile CTA */}
+              <motion.div
+                className="pt-4 mt-4 border-t border-white/10"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: navigation.length * 0.08 + 0.2 }}
+              >
+                <Link
+                  href="#membership"
+                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-rose-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Join Our Community
+                </Link>
+              </motion.div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,30 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { HeartIcon, GlobeAltIcon, AcademicCapIcon, SparklesIcon } from '@heroicons/react/24/outline'
-
-const values = [
-  {
-    name: 'Unity',
-    description: 'Building bridges between diverse cultures and fostering understanding within our community.',
-    icon: HeartIcon,
-  },
-  {
-    name: 'Cultural Pride',
-    description: 'Celebrating the rich heritage and traditions of African and Caribbean communities.',
-    icon: SparklesIcon,
-  },
-  {
-    name: 'Academic Excellence',
-    description: 'Supporting our members in achieving their educational goals and career aspirations.',
-    icon: AcademicCapIcon,
-  },
-  {
-    name: 'Global Impact',
-    description: 'Creating positive change that extends beyond our university into the wider community.',
-    icon: GlobeAltIcon,
-  },
-]
 
 export default function AboutSection() {
   return (
@@ -73,40 +49,6 @@ export default function AboutSection() {
           </motion.div>
         </div>
 
-        {/* Values Section */}
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          <h3 className="text-2xl lg:text-3xl font-bold text-acs-black-900 mb-4">
-            Our <span className="gradient-text">Core Values</span>
-          </h3>
-          <p className="text-lg text-acs-black-600 max-w-2xl mx-auto">
-            The principles that guide everything we do and every decision we make
-          </p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => (
-            <motion.div
-              key={value.name}
-              className="bg-acs-black-50 rounded-2xl p-6 text-center hover-lift"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <value.icon className="w-6 h-6 text-white" />
-              </div>
-              <h4 className="text-lg font-bold text-acs-black-900 mb-3">{value.name}</h4>
-              <p className="text-acs-black-600 text-sm leading-relaxed">{value.description}</p>
-            </motion.div>
-          ))}
-        </div>
       </div>
     </section>
   )
