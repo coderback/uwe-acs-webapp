@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #0f172a;
+  --background: #0b0b0b;
+  --foreground: #ffffff;
   --acs-red: #ef4444;
   --acs-green: #22c55e;
-  --acs-black: #0f172a;
+  --acs-black: #0b0b0b;
 }
 
 /* Removed @theme inline directive for Tailwind v3 compatibility */
@@ -23,7 +23,7 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #1a1a1a;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -54,9 +54,9 @@ body {
 
 /* Glass morphism effect */
 .glass {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* African/Caribbean pattern overlay */

@@ -78,7 +78,7 @@ export default function EventsSection() {
   }
 
   return (
-    <section id="events" className="py-20 bg-acs-black-50">
+    <section id="events" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -87,10 +87,10 @@ export default function EventsSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-acs-black-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Upcoming <span className="gradient-text">Events</span>
           </h2>
-          <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-100 max-w-2xl mx-auto">
             Join us for unforgettable experiences that celebrate our culture, 
             build community, and create lasting memories.
           </p>
@@ -104,7 +104,7 @@ export default function EventsSection() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="flex flex-wrap gap-2 bg-white rounded-full p-2 shadow-lg">
+          <div className="flex flex-wrap gap-2 bg-gray-800 rounded-full p-2 shadow-lg">
             {categories.map(category => (
               <button
                 key={category.id}
@@ -112,7 +112,7 @@ export default function EventsSection() {
                 className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   selectedCategory === category.id
                     ? 'bg-acs-red-500 text-white shadow-lg scale-105'
-                    : 'text-acs-black-600 hover:bg-acs-black-100'
+                    : 'text-gray-100 hover:bg-gray-700'
                 }`}
               >
                 {category.name}
@@ -134,7 +134,7 @@ export default function EventsSection() {
             {filteredEvents.map((event, index) => (
               <motion.div
                 key={event.id}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover-lift"
+                className="bg-gray-900 rounded-2xl shadow-lg overflow-hidden hover-lift"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -156,24 +156,24 @@ export default function EventsSection() {
 
                 {/* Event Content */}
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-acs-black-900 mb-3">{event.title}</h3>
-                  <p className="text-acs-black-600 mb-4 line-clamp-2">{event.description}</p>
+                  <h3 className="text-xl font-bold text-white mb-3">{event.title}</h3>
+                  <p className="text-gray-100 mb-4 line-clamp-2">{event.description}</p>
 
                   {/* Event Details */}
                   <div className="space-y-2 mb-6">
-                    <div className="flex items-center text-sm text-acs-black-600">
+                    <div className="flex items-center text-sm text-gray-100">
                       <CalendarIcon className="w-4 h-4 mr-2 text-acs-red-500" />
                       {formatDate(event.date)}
                     </div>
-                    <div className="flex items-center text-sm text-acs-black-600">
+                    <div className="flex items-center text-sm text-gray-100">
                       <ClockIcon className="w-4 h-4 mr-2 text-acs-red-500" />
                       {event.time}
                     </div>
-                    <div className="flex items-center text-sm text-acs-black-600">
+                    <div className="flex items-center text-sm text-gray-100">
                       <MapPinIcon className="w-4 h-4 mr-2 text-acs-red-500" />
                       {event.location}
                     </div>
-                    <div className="flex items-center text-sm text-acs-black-600">
+                    <div className="flex items-center text-sm text-gray-100">
                       <UsersIcon className="w-4 h-4 mr-2 text-acs-red-500" />
                       {event.registered}/{event.capacity} attending
                     </div>
@@ -181,11 +181,11 @@ export default function EventsSection() {
 
                   {/* Capacity Bar */}
                   <div className="mb-6">
-                    <div className="flex justify-between text-xs text-acs-black-600 mb-2">
+                    <div className="flex justify-between text-xs text-gray-100 mb-2">
                       <span>Capacity</span>
                       <span>{Math.round((event.registered / event.capacity) * 100)}% full</span>
                     </div>
-                    <div className="w-full bg-acs-black-200 rounded-full h-2">
+                    <div className="w-full bg-gray-700 rounded-full h-2">
                       <motion.div
                         className="bg-gradient-to-r from-acs-red-500 to-acs-green-500 h-2 rounded-full"
                         initial={{ width: 0 }}

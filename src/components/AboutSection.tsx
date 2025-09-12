@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 export default function AboutSection() {
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center mb-20">
           <motion.div
@@ -13,18 +13,18 @@ export default function AboutSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl lg:text-4xl font-bold text-acs-black-900 mb-6">
-              About <span className="gradient-text">UWE ACS</span>
+            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
+              About Us
             </h2>
-            <p className="text-lg text-acs-black-600 mb-6 leading-relaxed">
+            <p className="text-lg text-gray-100 mb-6 leading-relaxed">
               The UWE African Caribbean Society exists to create an inclusive space where students 
-              can connect with their roots, celebrate their heritage, and build lasting relationships 
-              that extend far beyond university life.
+              can feel at home and connect with their roots, celebrate their heritage, and build lasting relationships
+              that go far beyond university.
             </p>
-            <p className="text-lg text-acs-black-600 mb-8 leading-relaxed">
-              We strive to bridge cultural gaps, promote understanding, and showcase the vibrant 
+            <p className="text-lg text-gray-100 mb-8 leading-relaxed">
+              We strive to bridge cultural gaps, uplift our members, and showcase the vibrant
               traditions that make our community unique. Through events, mentorship, and advocacy, 
-              we empower our members to succeed academically while staying connected to their cultural identity.
+              we empower our members to succeed academically while having fun staying connected to their cultural identity.
             </p>
           </motion.div>
           
@@ -38,11 +38,11 @@ export default function AboutSection() {
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-2xl transform rotate-6"></div>
               <div className="relative bg-white p-8 rounded-2xl shadow-xl">
-                <h3 className="text-2xl font-bold text-acs-black-900 mb-4">Our Mission</h3>
-                <p className="text-acs-black-600 italic leading-relaxed">
+                <h3 className="text-2xl font-bold text-black mb-4">Our Mission</h3>
+                <p className="text-black italic leading-relaxed">
                   &ldquo;To be the leading voice for African and Caribbean students at UWE Bristol, 
                   fostering a community where every member feels valued, supported, and proud 
-                  of their heritage while building bridges to a brighter, more inclusive future.&rdquo;
+                  of their heritage while building bridges to a brighter, more successful future.&rdquo;
                 </p>
               </div>
             </div>

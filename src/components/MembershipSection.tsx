@@ -65,7 +65,7 @@ const membershipTiers = [
 
 export default function MembershipSection() {
   return (
-    <section id="membership" className="py-20 bg-white">
+    <section id="membership" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -74,10 +74,10 @@ export default function MembershipSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-acs-black-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Join <span className="gradient-text">ACS</span>
           </h2>
-          <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-100 max-w-2xl mx-auto">
             Become part of a vibrant community that celebrates African and Caribbean culture 
             while supporting your academic and personal growth.
           </p>
@@ -97,8 +97,8 @@ export default function MembershipSection() {
               <div className="w-16 h-16 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <benefit.icon className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-bold text-acs-black-900 mb-4">{benefit.title}</h3>
-              <p className="text-acs-black-600 leading-relaxed">{benefit.description}</p>
+              <h3 className="text-xl font-bold text-white mb-4">{benefit.title}</h3>
+              <p className="text-gray-100 leading-relaxed">{benefit.description}</p>
             </motion.div>
           ))}
         </div>
@@ -108,8 +108,8 @@ export default function MembershipSection() {
           {membershipTiers.map((tier, index) => (
             <motion.div
               key={tier.name}
-              className={`relative bg-white rounded-2xl shadow-lg overflow-hidden border-2 ${
-                tier.popular ? 'border-acs-red-500' : 'border-acs-black-200'
+              className={`relative bg-gray-900 rounded-2xl shadow-lg overflow-hidden border-2 ${
+                tier.popular ? 'border-acs-red-500' : 'border-gray-700'
               }`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -123,18 +123,18 @@ export default function MembershipSection() {
               )}
               
               <div className={`p-8 ${tier.popular ? 'pt-16' : ''}`}>
-                <h3 className="text-2xl font-bold text-acs-black-900 mb-2">{tier.name}</h3>
+                <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
                 <div className="mb-4">
                   <span className="text-4xl font-bold gradient-text">{tier.price}</span>
-                  <span className="text-acs-black-600 ml-2">/ Academic Year</span>
+                  <span className="text-gray-100 ml-2">/ Academic Year</span>
                 </div>
-                <p className="text-acs-black-600 mb-6">{tier.description}</p>
+                <p className="text-gray-100 mb-6">{tier.description}</p>
                 
                 <ul className="space-y-3 mb-8">
                   {tier.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start">
                       <CheckIcon className="w-5 h-5 text-acs-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-acs-black-700">{feature}</span>
+                      <span className="text-gray-100">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -163,10 +163,10 @@ export default function MembershipSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h3 className="text-2xl font-bold text-acs-black-900 mb-4">
+          <h3 className="text-2xl font-bold text-white mb-4">
             Ready to Join Our <span className="gradient-text">Community?</span>
           </h3>
-          <p className="text-lg text-acs-black-600 mb-6 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-100 mb-6 max-w-2xl mx-auto">
             Become part of something bigger. Connect with your heritage, build lasting friendships, 
             and create memories that will last a lifetime.
           </p>

@@ -75,7 +75,7 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-acs-black-50">
+    <section id="contact" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -84,10 +84,10 @@ export default function ContactSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-acs-black-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Get in <span className="gradient-text">Touch</span>
           </h2>
-          <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-100 max-w-2xl mx-auto">
             Have questions, ideas, or just want to say hello? 
             We&apos;d love to hear from you and connect with our community.
           </p>
@@ -98,7 +98,7 @@ export default function ContactSection() {
           {contactInfo.map((info, index) => (
             <motion.div
               key={info.title}
-              className="text-center p-6 bg-white rounded-2xl hover-lift"
+              className="text-center p-6 bg-gray-900 rounded-2xl hover-lift"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -107,9 +107,9 @@ export default function ContactSection() {
               <div className="w-12 h-12 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <info.icon className="w-6 h-6 text-white" />
               </div>
-              <h3 className="text-lg font-bold text-acs-black-900 mb-2">{info.title}</h3>
+              <h3 className="text-lg font-bold text-white mb-2">{info.title}</h3>
               <p className="text-base font-semibold text-acs-red-500 mb-2">{info.details}</p>
-              <p className="text-sm text-acs-black-600">{info.description}</p>
+              <p className="text-sm text-gray-100">{info.description}</p>
             </motion.div>
           ))}
         </div>
@@ -122,11 +122,11 @@ export default function ContactSection() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-2xl font-bold text-acs-black-900 mb-6">Send Us a Message</h3>
+            <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-acs-black-700 mb-2">
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
                     Full Name *
                   </label>
                   <input
@@ -136,12 +136,12 @@ export default function ContactSection() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-acs-black-200 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
                     placeholder="Your full name"
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-acs-black-700 mb-2">
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
                     Email Address *
                   </label>
                   <input
@@ -151,14 +151,14 @@ export default function ContactSection() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-acs-black-200 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
 
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-acs-black-700 mb-2">
+                <label htmlFor="subject" className="block text-sm font-medium text-gray-200 mb-2">
                   Subject *
                 </label>
                 <select
@@ -167,7 +167,7 @@ export default function ContactSection() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-acs-black-200 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
                 >
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
@@ -181,7 +181,7 @@ export default function ContactSection() {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-acs-black-700 mb-2">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-200 mb-2">
                   Message *
                 </label>
                 <textarea
@@ -191,7 +191,7 @@ export default function ContactSection() {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-acs-black-200 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical"
+                  className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical"
                   placeholder="Tell us more about your inquiry..."
                 ></textarea>
               </div>
@@ -231,8 +231,8 @@ export default function ContactSection() {
             viewport={{ once: true }}
           >
             <div>
-              <h3 className="text-2xl font-bold text-acs-black-900 mb-6">Follow Our Journey</h3>
-              <p className="text-acs-black-600 mb-6">
+              <h3 className="text-2xl font-bold text-white mb-6">Follow Our Journey</h3>
+              <p className="text-gray-100 mb-6">
                 Stay connected with us on social media for the latest updates, 
                 behind-the-scenes content, and community highlights.
               </p>
@@ -256,20 +256,20 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="bg-white rounded-2xl p-6">
-              <h4 className="text-lg font-bold text-acs-black-900 mb-4">Quick Questions?</h4>
+            <div className="bg-gray-900 rounded-2xl p-6">
+              <h4 className="text-lg font-bold text-white mb-4">Quick Questions?</h4>
               <div className="space-y-3">
                 <div>
-                  <p className="font-semibold text-acs-black-900 text-sm">How can I join ACS?</p>
-                  <p className="text-acs-black-600 text-sm">Visit the UWE Students&apos; Union website or contact us directly.</p>
+                  <p className="font-semibold text-white text-sm">How can I join ACS?</p>
+                  <p className="text-gray-100 text-sm">Visit the UWE Students&apos; Union website or contact us directly.</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-acs-black-900 text-sm">When are events held?</p>
-                  <p className="text-acs-black-600 text-sm">We host events throughout the academic year, typically 2-3 times per month.</p>
+                  <p className="font-semibold text-white text-sm">When are events held?</p>
+                  <p className="text-gray-100 text-sm">We host events throughout the academic year, typically 2-3 times per month.</p>
                 </div>
                 <div>
-                  <p className="font-semibold text-acs-black-900 text-sm">Can non-students join?</p>
-                  <p className="text-acs-black-600 text-sm">Yes! We welcome alumni and community members through our special membership tiers.</p>
+                  <p className="font-semibold text-white text-sm">Can non-students join?</p>
+                  <p className="text-gray-100 text-sm">Yes! We welcome alumni and community members through our special membership tiers.</p>
                 </div>
               </div>
             </div>

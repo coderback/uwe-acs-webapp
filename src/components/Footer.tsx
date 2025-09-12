@@ -65,7 +65,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-acs-black-900 pattern-overlay">
+    <footer className="pattern-overlay" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
         <div className="xl:grid xl:grid-cols-3 xl:gap-8">
           {/* Logo and Description */}

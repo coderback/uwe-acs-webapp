@@ -96,6 +96,7 @@ export default function Navigation() {
   }, [])
 
   return (
+    <>
     <motion.nav
       className="fixed top-0 w-full z-50"
       style={{
@@ -150,24 +151,6 @@ export default function Navigation() {
           {/* Desktop Navigation */}
           <div className="hidden lg:block ml-auto">
             <div ref={containerRef} className="flex items-center space-x-1 relative">
-              {/* Enhanced moving indicator */}
-              <motion.div
-                className="absolute -bottom-2 h-0.5 rounded-full"
-                style={{
-                  background: `linear-gradient(90deg, ${palette.red}, ${palette.green})`,
-                  boxShadow: `0 0 10px rgba(225, 29, 72, 0.5)`
-                }}
-                animate={{
-                  x: lineStyle.left,
-                  width: lineStyle.width,
-                }}
-                transition={{ 
-                  type: "spring", 
-                  stiffness: 400, 
-                  damping: 40,
-                  mass: 0.8
-                }}
-              />
               
               {navigation.map((item, index) => (
                 <motion.div
@@ -215,7 +198,7 @@ export default function Navigation() {
           <div className="lg:hidden ml-auto">
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="relative inline-flex items-center justify-center p-2 rounded-full text-white hover:text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50 transition-all duration-200"
+              className="relative inline-flex items-center justify-center p-2 text-white hover:text-white focus:outline-none transition-all duration-200"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -239,64 +222,66 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Enhanced Mobile Navigation Menu */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            className="lg:hidden overflow-hidden"
-            initial={{ opacity: 0, height: 0, y: -20 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -20 }}
-            transition={{ duration: 0.4, ease: "easeOut" }}
+    </motion.nav>
+
+    {/* Enhanced Mobile Navigation Menu */}
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          className="lg:hidden fixed inset-x-0 top-16 bottom-0 z-50"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <motion.div 
+            className="h-full px-6 pt-8 pb-6 space-y-4 bg-black backdrop-blur-xl"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <motion.div 
-              className="px-4 pt-4 pb-6 space-y-2 bg-black/90 backdrop-blur-xl shadow-2xl border-t border-white/10"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              {navigation.map((item, index) => (
-                <motion.div
-                  key={item.name}
-                  initial={{ opacity: 0, x: -30 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.08, ease: "easeOut" }}
-                >
-                  <Link
-                    href={item.href}
-                    className={cn(
-                      "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200",
-                      activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')
-                        ? "text-white bg-gradient-to-r from-rose-500/20 to-green-500/20 border border-white/20"
-                        : "text-white/90 hover:text-white hover:bg-white/10"
-                    )}
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <SparklesIcon className="w-4 h-4 mr-3 opacity-60" />
-                    {item.name}
-                  </Link>
-                </motion.div>
-              ))}
-              
-              {/* Mobile CTA */}
+            {navigation.map((item, index) => (
               <motion.div
-                className="pt-4 mt-4 border-t border-white/10"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: navigation.length * 0.08 + 0.2 }}
+                key={item.name}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.08, ease: "easeOut" }}
               >
                 <Link
-                  href="#membership"
-                  className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-rose-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                  href={item.href}
+                  className={cn(
+                    "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200",
+                    activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')
+                      ? "text-white bg-gradient-to-r from-rose-500/20 to-green-500/20 border border-white/20"
+                      : "text-white/90 hover:text-white hover:bg-white/10"
+                  )}
                   onClick={() => setIsOpen(false)}
                 >
-                  Join Our Community
+                  <SparklesIcon className="w-4 h-4 mr-3 opacity-60" />
+                  {item.name}
                 </Link>
               </motion.div>
+            ))}
+            
+            {/* Mobile CTA */}
+            <motion.div
+              className="pt-4 mt-4 border-t border-white/10"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: navigation.length * 0.08 + 0.2 }}
+            >
+              <Link
+                href="#membership"
+                className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-rose-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                onClick={() => setIsOpen(false)}
+              >
+                Join Our Community
+              </Link>
             </motion.div>
           </motion.div>
-        )}
-      </AnimatePresence>
-    </motion.nav>
+        </motion.div>
+      )}
+    </AnimatePresence>
+    </>
   )
 }

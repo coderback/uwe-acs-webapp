@@ -1,7 +1,7 @@
 'use client'
 
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { ArrowRightIcon, UsersIcon, SparklesIcon, CalendarDaysIcon, MapPinIcon } from '@heroicons/react/24/outline'
+import { SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 import Image from 'next/image'
 import AboutSection from '@/components/AboutSection'
@@ -9,13 +9,7 @@ import CommitteeSection from '@/components/CommitteeSection'
 import EventsSection from '@/components/EventsSection'
 import MembershipSection from '@/components/MembershipSection'
 import ContactSection from '@/components/ContactSection'
-
-const stats = [
-  { id: 1, name: 'Active Members', value: 320, suffix: '+', icon: UsersIcon },
-  { id: 2, name: 'Events This Year', value: 58, suffix: '+', icon: CalendarDaysIcon },
-  { id: 3, name: 'Years Active', value: 12, suffix: '', icon: SparklesIcon },
-  { id: 4, name: 'Cultural Events', value: 150, suffix: '+', icon: MapPinIcon },
-]
+import PalmLeafDivider from '@/components/PalmLeafDivider'
 
 const palette = {
   red: '#E11D48',
@@ -123,21 +117,18 @@ export default function Home() {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <motion.h1 
-                className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white leading-tight"
+                className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-white leading-tight"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
               >
                 <span className="block bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">
-                  UWE African Caribbean
-                </span>
-                <span className="block mt-2 bg-gradient-to-r from-rose-500 via-green-500 to-rose-500 bg-clip-text text-transparent">
-                  Society
+                  UWE African Caribbean Society
                 </span>
               </motion.h1>
 
               <motion.p 
-                className="text-lg md:text-xl lg:text-2xl text-white/85 leading-relaxed max-w-2xl"
+                className="text-lg md:text-lg lg:text-xl text-white/85 leading-relaxed max-w-2xl"
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
@@ -154,24 +145,49 @@ export default function Home() {
               >
                 <motion.a
                   href="#membership"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-black bg-white rounded-full hover:bg-gray-50 transition-all duration-300 shadow-xl hover:shadow-2xl"
+                  className="group inline-flex items-center justify-center px-6 py-3 text-base md:text-lg font-semibold text-white rounded-full transition-all duration-300 shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e11d47]"
+                  style={{ backgroundColor: '#e11d47' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <UsersIcon className="w-6 h-6 mr-2 transition-transform group-hover:scale-110" />
-                  Join Our Community
+                  <span>Join Our Community</span>
                   <ArrowRightIcon className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                 </motion.a>
                 <motion.a
                   href="#events"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white border-2 border-white/30 rounded-full hover:bg-white/10 transition-all duration-300"
+                  className="group relative inline-flex items-center justify-center pl-6 pr-18 py-3 text-base md:text-lg font-semibold rounded-full transition-all duration-300 border-2 text-[#ffffff] hover:bg-[#e11d47]/10 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#e11d47] overflow-visible"
+                  style={{ borderColor: '#e11d47' }}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <CalendarDaysIcon className="w-6 h-6 mr-2 transition-transform group-hover:scale-110" />
-                  View Events
-                  <ArrowRightIcon className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+                  <span className="pointer-events-none">View Events</span>
+                  <span className="pointer-events-none absolute right-[2px] top-1/2 -translate-y-1/2 inline-flex items-center justify-center w-11 h-11 md:w-12 md:h-12 rounded-full bg-[#e11d47] text-white shadow-md ring-2 ring-[#e11d47] ring-offset-0 transition-transform group-hover:translate-x-0.5 group-hover:rotate-3">
+                    <ArrowRightIcon className="w-5 h-5" />
+                  </span>
                 </motion.a>
+              </motion.div>
+
+              {/* Statistics */}
+              <motion.div
+                className="flex items-center justify-center lg:justify-start gap-10 mt-8 text-center lg:text-left"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.8, ease: "easeOut" }}
+              >
+                <div className="flex flex-col">
+                  <span className="text-4xl md:text-5xl font-extrabold tracking-tight">
+                    <span style={{ color: '#e11d47' }}>500</span>
+                    <span className="text-white">+</span>
+                  </span>
+                  <span className="text-white text-base md:text-lg font-medium mt-1">Members Joined</span>
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-4xl md:text-5xl font-extrabold tracking-tight">
+                    <span style={{ color: '#e11d47' }}>4</span>
+                    <span className="text-white">+</span>
+                  </span>
+                  <span className="text-white text-base md:text-lg font-medium mt-1">Events Hosted</span>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -207,7 +223,7 @@ export default function Home() {
                   >
                     <span className="inline-flex items-center gap-2">
                       <SparklesIcon className="w-4 h-4 text-yellow-400" />
-                      Community • Culture • Connection
+                      Authenticity • Culture • Solidarity
                     </span>
                   </motion.div>
                 </div>
@@ -217,79 +233,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Enhanced Stats Section */}
-      <section id="stats" className="py-20 bg-gradient-to-b from-white to-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
-              Our Impact in Numbers
-            </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Building a stronger, more connected community one event at a time
-            </p>
-          </motion.div>
-          
-          <motion.div
-            className="grid grid-cols-2 lg:grid-cols-4 gap-8"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, staggerChildren: 0.1 }}
-            viewport={{ once: true }}
-          >
-            {stats.map((stat, index) => {
-              const IconComponent = stat.icon
-              return (
-                <motion.div
-                  key={stat.id}
-                  className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100"
-                  initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                  whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-                  viewport={{ once: true }}
-                  whileHover={{ y: -5 }}
-                >
-                  <div className="text-center space-y-3">
-                    <div className="mx-auto w-12 h-12 bg-gradient-to-br from-rose-500 to-green-500 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                      <IconComponent className="w-6 h-6 text-white" />
-                    </div>
-                    <motion.div
-                      className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-rose-600 to-green-600 bg-clip-text text-transparent"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: index * 0.2 }}
-                      viewport={{ once: true }}
-                    >
-                      <Counter target={stat.value} suffix={stat.suffix} />
-                    </motion.div>
-                    <div className="text-gray-700 font-medium text-sm">{stat.name}</div>
-                  </div>
-                  
-                  {/* Hover effect gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-rose-500/5 to-green-500/5 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.div>
-              )
-            })}
-          </motion.div>
-        </div>
-      </section>
+
+      {/* Palm Leaf Divider */}
+      <PalmLeafDivider />
 
       {/* About Section */}
       <AboutSection />
 
+      {/* Palm Leaf Divider */}
+      <PalmLeafDivider flip />
+
       {/* Committee Section */}
       <CommitteeSection />
+
+      {/* Palm Leaf Divider */}
+      <PalmLeafDivider />
 
       {/* Events Section */}
       <EventsSection />
 
+      {/* Palm Leaf Divider */}
+      <PalmLeafDivider flip />
+
       {/* Membership Section */}
       <MembershipSection />
+
+      {/* Palm Leaf Divider */}
+      <PalmLeafDivider />
 
       {/* Contact Section */}
       <ContactSection />

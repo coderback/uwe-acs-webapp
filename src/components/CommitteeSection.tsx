@@ -51,7 +51,7 @@ export default function CommitteeSection() {
   const [flippedCard, setFlippedCard] = useState<number | null>(null)
 
   return (
-    <section id="committee" className="py-20 bg-acs-black-50">
+    <section id="committee" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
@@ -60,10 +60,10 @@ export default function CommitteeSection() {
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl lg:text-4xl font-bold text-acs-black-900 mb-4">
+          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Meet the <span className="gradient-text">Committee</span>
           </h2>
-          <p className="text-xl text-acs-black-600 max-w-2xl mx-auto">
+          <p className="text-xl text-gray-100 max-w-2xl mx-auto">
             The passionate leaders dedicated to making ACS a vibrant and inclusive community for all.
           </p>
         </motion.div>
@@ -88,7 +88,7 @@ export default function CommitteeSection() {
                   }`}
                   style={{ transform: flippedCard === member.id ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
                 >
-                  <div className="bg-white rounded-2xl shadow-lg overflow-hidden h-full">
+                  <div className="bg-gray-900 rounded-2xl shadow-lg overflow-hidden h-full">
                     {/* Profile Image */}
                     <div className="relative h-32 bg-gradient-to-br from-acs-red-500 to-acs-green-500">
                       <div className="absolute inset-0 bg-black/20"></div>
@@ -102,9 +102,9 @@ export default function CommitteeSection() {
                     <div className="p-4">
                       <div className="flex items-center mb-2">
                         <AcademicCapIcon className="w-4 h-4 text-acs-red-500 mr-2" />
-                        <span className="text-xs text-acs-black-600">{member.course}</span>
+                        <span className="text-xs text-gray-100">{member.course}</span>
                       </div>
-                      <div className="text-xs text-acs-black-600 mb-3">{member.year}</div>
+                      <div className="text-xs text-gray-100 mb-3">{member.year}</div>
                       <p className="text-acs-black-700 text-xs leading-relaxed line-clamp-4">
                         {member.bio}
                       </p>
@@ -139,7 +139,7 @@ export default function CommitteeSection() {
                           {member.interests.map((interest, idx) => (
                             <span
                               key={idx}
-                              className="px-2 py-1 text-xs bg-white/20 rounded-full"
+                              className="px-2 py-1 text-xs bg-gray-900/20 rounded-full"
                             >
                               {interest}
                             </span>
@@ -155,7 +155,7 @@ export default function CommitteeSection() {
                       </div>
                       <a
                         href={`mailto:${member.email}`}
-                        className="flex items-center space-x-1 bg-white/20 hover:bg-white/30 px-3 py-1 rounded-full transition-colors duration-200"
+                        className="flex items-center space-x-1 bg-gray-900/20 hover:bg-gray-900/30 px-3 py-1 rounded-full transition-colors duration-200"
                       >
                         <EnvelopeIcon className="w-3 h-3" />
                         <span className="text-xs">Email</span>
