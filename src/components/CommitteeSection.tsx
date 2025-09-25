@@ -1,8 +1,9 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion'
+import { motion, useMotionValue } from 'framer-motion'
 import { EnvelopeIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import Image from 'next/image'
 
 const committee = [
   {
@@ -101,7 +102,7 @@ type CommitteeCardProps = {
   isActive?: boolean;
 }
 
-function CommitteeCard({ member, index, isActive = false }: CommitteeCardProps) {
+function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -118,10 +119,12 @@ function CommitteeCard({ member, index, isActive = false }: CommitteeCardProps) 
         {/* Full-bleed image */}
         <div className="relative aspect-[3/4] w-full">
           {member.imageUrl ? (
-            <img
+            <Image
               src={member.imageUrl}
               alt={`${member.name} portrait`}
-              className="absolute inset-0 h-full w-full object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover"
             />
           ) : (
             <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center">
@@ -208,11 +211,15 @@ function CommitteeCard({ member, index, isActive = false }: CommitteeCardProps) 
           <div className="p-3 sm:p-4 lg:p-5 border-t border-white/10">
             <div className="flex items-start gap-3 sm:gap-4">
               {member.imageUrl ? (
-                <img
-                  src={member.imageUrl}
-                  alt={`${member.name} portrait`}
-                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl object-cover ring-2 ring-white/10 flex-shrink-0"
-                />
+                <div className="relative h-10 w-10 sm:h-12 sm:w-12 rounded-xl overflow-hidden ring-2 ring-white/10 flex-shrink-0">
+                  <Image
+                    src={member.imageUrl}
+                    alt={`${member.name} portrait`}
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
+                </div>
               ) : (
                 <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0">
                   {member.name.split(' ').map(n => n[0]).join('')}
@@ -272,7 +279,6 @@ function CommitteeCard({ member, index, isActive = false }: CommitteeCardProps) 
 
 export default function CommitteeSection() {
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
   const carouselRef = useRef<HTMLDivElement>(null)
   const x = useMotionValue(0)
 
@@ -397,9 +403,7 @@ export default function CommitteeSection() {
                   left: `${-maxIndex * (100 / cardsPerView)}%`,
                   right: 0
                 }}
-                onDragStart={() => setIsDragging(true)}
                 onDragEnd={(_, info) => {
-                  setIsDragging(false)
                   const offset = info.offset.x
                   const velocity = info.velocity.x
 
