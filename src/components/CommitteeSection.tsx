@@ -400,7 +400,7 @@ export default function CommitteeSection() {
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
                 drag="x"
                 dragConstraints={{
-                  left: `${-maxIndex * (100 / cardsPerView)}%`,
+                  left: -maxIndex * (100 / cardsPerView),
                   right: 0
                 }}
                 onDragEnd={(_, info) => {
