@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { 
-  CalendarIcon, 
-  ClockIcon, 
-  MapPinIcon, 
+import {
+  CalendarIcon,
+  ClockIcon,
+  MapPinIcon,
   UsersIcon,
   TicketIcon
 } from '@heroicons/react/24/outline'
@@ -64,7 +64,7 @@ const categories = [
 export default function EventsSection() {
   const [selectedCategory, setSelectedCategory] = useState('all')
 
-  const filteredEvents = events.filter(event => 
+  const filteredEvents = events.filter(event =>
     selectedCategory === 'all' || event.category === selectedCategory
   )
 
@@ -91,13 +91,13 @@ export default function EventsSection() {
             Upcoming <span className="gradient-text">Events</span>
           </h2>
           <p className="text-xl text-gray-100 max-w-2xl mx-auto">
-            Join us for unforgettable experiences that celebrate our culture, 
+            Join us for unforgettable experiences that celebrate our culture,
             build community, and create lasting memories.
           </p>
         </motion.div>
 
         {/* Filter */}
-        <motion.div 
+        <motion.div
           className="flex justify-center mb-12"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

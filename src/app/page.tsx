@@ -1,8 +1,8 @@
 'use client'
 
-import { motion, useScroll, useTransform, useInView } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
 import { SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState, useRef, useMemo, useCallback } from 'react'
+import { useRef, useMemo } from 'react'
 import Image from 'next/image'
 import AboutSection from '@/components/AboutSection'
 import CommitteeSection from '@/components/CommitteeSection'
@@ -267,50 +267,3 @@ export default function Home() {
   )
 }
 
-// Enhanced Animated Counter Component with Intersection Observer
-function Counter({ target, suffix }: { target: number; suffix: string }) {
-  const [count, setCount] = useState(0)
-  const [hasStarted, setHasStarted] = useState(false)
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true, margin: "-50px" })
-
-  const animateCounter = useCallback(() => {
-    if (hasStarted) return
-    setHasStarted(true)
-    
-    const duration = 2500
-    const start = performance.now()
-    
-    const updateCount = (currentTime: number) => {
-      const elapsed = currentTime - start
-      const progress = Math.min(elapsed / duration, 1)
-      
-      // Easing function for smoother animation
-      const easeOutCubic = 1 - Math.pow(1 - progress, 3)
-      const currentCount = Math.floor(easeOutCubic * target)
-      
-      setCount(currentCount)
-      
-      if (progress < 1) {
-        requestAnimationFrame(updateCount)
-      } else {
-        setCount(target)
-      }
-    }
-    
-    requestAnimationFrame(updateCount)
-  }, [target, hasStarted])
-
-  useEffect(() => {
-    if (isInView) {
-      const timer = setTimeout(animateCounter, 200) // Small delay for better UX
-      return () => clearTimeout(timer)
-    }
-  }, [isInView, animateCounter])
-
-  return (
-    <span ref={ref} className="tabular-nums">
-      {count}{suffix}
-    </span>
-  )
-}

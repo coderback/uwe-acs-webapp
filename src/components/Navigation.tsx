@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion'
-import { Bars3Icon, XMarkIcon, SparklesIcon } from '@heroicons/react/24/outline'
+import { SparklesIcon } from '@heroicons/react/24/outline'
 import { cn } from '@/lib/utils'
 
 const navigation = [
@@ -16,17 +16,11 @@ const navigation = [
   { name: 'Contact', href: '#contact' },
 ]
 
-const palette = {
-  red: '#E11D48',
-  green: '#16A34A',
-  black: '#0B0B0B',
-}
 
 export default function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('hero')
-  const [lineStyle, setLineStyle] = useState({ left: 0, width: 0 })
   const navRefs = useRef<(HTMLAnchorElement | null)[]>([])
   const containerRef = useRef<HTMLDivElement>(null)
   
@@ -34,11 +28,23 @@ export default function Navigation() {
   const navBackdrop = useTransform(scrollY, [0, 100], [0, 0.8])
   const navBlur = useTransform(scrollY, [0, 100], [0, 20])
 
+  // Enhanced line position update with smooth transitions
+  const updateLinePosition = useCallback((section: string) => {
+    const activeIndex = navigation.findIndex(item =>
+      item.href === `#${section}` || (section === 'hero' && item.href === '#hero')
+    )
+
+    if (activeIndex !== -1 && navRefs.current[activeIndex] && containerRef.current) {
+      // Line position logic can be implemented here if needed
+      console.log('Active section:', section, 'Index:', activeIndex)
+    }
+  }, [])
+
   // Optimized scroll handler with throttling
   const handleScroll = useCallback(() => {
     const isScrolled = window.scrollY > 20
     setScrolled(isScrolled)
-    
+
     // Check which section is currently in view with improved logic
     const sections = ['hero', 'about', 'committee', 'events', 'membership', 'contact']
     const currentSection = sections.find(section => {
@@ -50,12 +56,12 @@ export default function Navigation() {
       }
       return false
     })
-    
+
     if (currentSection && currentSection !== activeSection) {
       setActiveSection(currentSection)
       updateLinePosition(currentSection)
     }
-  }, [activeSection])
+  }, [activeSection, updateLinePosition])
 
   useEffect(() => {
     let rafId: number
@@ -70,30 +76,10 @@ export default function Navigation() {
     }
   }, [handleScroll])
 
-  // Enhanced line position update with smooth transitions
-  const updateLinePosition = useCallback((section: string) => {
-    const activeIndex = navigation.findIndex(item => 
-      item.href === `#${section}` || (section === 'hero' && item.href === '#hero')
-    )
-    
-    if (activeIndex !== -1 && navRefs.current[activeIndex] && containerRef.current) {
-      const activeElement = navRefs.current[activeIndex]
-      const container = containerRef.current
-      
-      const elementRect = activeElement.getBoundingClientRect()
-      const containerRect = container.getBoundingClientRect()
-      
-      setLineStyle({
-        left: elementRect.left - containerRect.left,
-        width: elementRect.width
-      })
-    }
-  }, [])
-
   // Initialize line position on mount
   useEffect(() => {
     updateLinePosition('hero')
-  }, [])
+  }, [updateLinePosition])
 
   return (
     <>
