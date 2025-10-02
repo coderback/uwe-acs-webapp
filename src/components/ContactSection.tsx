@@ -2,15 +2,9 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  EnvelopeIcon, 
-  PhoneIcon, 
-  MapPinIcon,
-  ClockIcon,
+import {
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline'
-
-const contactInfo: never[] = []
 
 const socialLinks = [
   {

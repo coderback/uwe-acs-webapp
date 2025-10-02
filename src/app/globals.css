@@ -17,22 +17,31 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Custom scrollbar */
+/* Custom scrollbar - Redesigned */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #0a0a0a;
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, var(--acs-red), var(--acs-green));
-  border-radius: 4px;
+  background: linear-gradient(180deg, var(--acs-red), var(--acs-green));
+  border-radius: 6px;
+  border: 2px solid #0a0a0a;
+  transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #dc2626, #16a34a);
+  background: linear-gradient(180deg, #dc2626, #16a34a);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: linear-gradient(180deg, #b91c1c, #15803d);
 }
 
 /* Base body styles */

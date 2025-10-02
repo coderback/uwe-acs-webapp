@@ -2,10 +2,9 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { 
-  EnvelopeIcon, 
-  MapPinIcon,
-  PhoneIcon
+import {
+  EnvelopeIcon,
+  MapPinIcon
 } from '@heroicons/react/24/outline'
 
 const socialLinks = [
