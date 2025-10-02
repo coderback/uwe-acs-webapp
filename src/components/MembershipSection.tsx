@@ -104,46 +104,45 @@ export default function MembershipSection() {
         </div>
 
         {/* Membership Tiers */}
-        <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {membershipTiers.map((tier, index) => (
             <motion.div
               key={tier.name}
-              className={`relative bg-gray-900 rounded-2xl shadow-lg overflow-hidden border-2 ${
-                tier.popular ? 'border-acs-red-500' : 'border-gray-700'
-              }`}
+              className="relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-gray-700 transition-all duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
+              whileHover={{ y: -4 }}
             >
               {tier.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-acs-red-500 text-white text-center py-2 text-sm font-semibold">
+                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white text-center py-2 text-xs font-semibold uppercase tracking-wide">
                   Most Popular
                 </div>
               )}
-              
-              <div className={`p-8 ${tier.popular ? 'pt-16' : ''}`}>
+
+              <div className={`p-8 ${tier.popular ? 'pt-14' : ''}`}>
                 <h3 className="text-2xl font-bold text-white mb-2">{tier.name}</h3>
                 <div className="mb-4">
-                  <span className="text-4xl font-bold gradient-text">{tier.price}</span>
-                  <span className="text-gray-100 ml-2">/ Academic Year</span>
+                  <span className="text-5xl font-bold gradient-text">{tier.price}</span>
+                  <span className="text-gray-400 ml-2">/ Academic Year</span>
                 </div>
-                <p className="text-gray-100 mb-6">{tier.description}</p>
-                
+                <p className="text-gray-300 mb-6">{tier.description}</p>
+
                 <ul className="space-y-3 mb-8">
                   {tier.features.map((feature, idx) => (
                     <li key={idx} className="flex items-start">
                       <CheckIcon className="w-5 h-5 text-acs-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-100">{feature}</span>
+                      <span className="text-gray-200">{feature}</span>
                     </li>
                   ))}
                 </ul>
-                
+
                 <motion.button
                   className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
-                    tier.popular 
-                      ? 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600'
-                      : 'bg-acs-black-900 text-white hover:bg-acs-black-800'
+                    tier.popular
+                      ? 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600 shadow-lg'
+                      : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}

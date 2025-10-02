@@ -75,8 +75,6 @@ type EventCardProps = {
 }
 
 function EventCard({ event, index }: EventCardProps) {
-  const [isHovered, setIsHovered] = useState(false)
-
   const getCategoryColor = (category: string) => {
     const colors = {
       cultural: 'from-rose-500/20 to-red-500/20 text-rose-200',
@@ -89,15 +87,12 @@ function EventCard({ event, index }: EventCardProps) {
 
   return (
     <motion.div
-      className="group relative w-full max-w-[400px] mx-auto rounded-[1.6rem] p-[2px]
+      className="relative w-full max-w-[400px] mx-auto rounded-[1.6rem] p-[2px]
                 bg-[conic-gradient(at_10%_10%,#ef4444,black_120deg,#22c55e_240deg,#ef4444_360deg)]
                 shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_25px_60px_rgba(0,0,0,0.55)]"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      whileHover={{ y: -8, scale: 1.02 }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative rounded-[1.5rem] overflow-hidden bg-neutral-950">
         {/* Event Image - Full visibility */}
@@ -108,7 +103,7 @@ function EventCard({ event, index }: EventCardProps) {
               alt={event.title}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover"
             />
           ) : (
             <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center">
@@ -134,7 +129,7 @@ function EventCard({ event, index }: EventCardProps) {
         <div className="p-4 bg-neutral-900/90 backdrop-blur-sm">
           <div className="mb-3">
             <h3 className="text-lg font-bold text-white mb-1">{event.title}</h3>
-            <p className="text-sm text-neutral-200 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+            <p className="text-sm text-neutral-200 line-clamp-2">
               {event.description}
             </p>
           </div>
@@ -156,46 +151,34 @@ function EventCard({ event, index }: EventCardProps) {
           </div>
 
           {/* Action button */}
-          <motion.button
-            className="w-full px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200
-                     bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white hover:shadow-lg"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+          <button
+            className="w-full px-4 py-2.5 rounded-full text-sm font-semibold
+                     bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white"
           >
             <div className="flex items-center justify-center gap-2">
               <TicketIcon className="w-4 h-4" />
               Register Now
             </div>
-          </motion.button>
+          </button>
         </div>
 
-        {/* Highlights section (expandable on hover) */}
-        <motion.div
-          className="overflow-hidden bg-neutral-900/90 backdrop-blur-sm"
-          initial={{ height: 0, opacity: 0 }}
-          animate={{
-            height: isHovered ? 'auto' : 0,
-            opacity: isHovered ? 1 : 0
-          }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-        >
-          <div className="p-4 border-t border-white/10">
-            <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
-              <SparklesIcon className="w-4 h-4 text-yellow-400" />
-              Event Highlights
-            </h4>
-            <div className="flex flex-wrap gap-1.5">
-              {event.highlights?.map((highlight, i) => (
-                <span
-                  key={i}
-                  className="px-2 py-1 text-xs rounded-full bg-white/10 text-neutral-200 border border-white/10"
-                >
-                  {highlight}
-                </span>
-              ))}
-            </div>
+        {/* Highlights section */}
+        <div className="p-4 border-t border-white/10 bg-neutral-900/90 backdrop-blur-sm">
+          <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+            <SparklesIcon className="w-4 h-4 text-yellow-400" />
+            Event Highlights
+          </h4>
+          <div className="flex flex-wrap gap-1.5">
+            {event.highlights?.map((highlight, i) => (
+              <span
+                key={i}
+                className="px-2 py-1 text-xs rounded-full bg-white/10 text-neutral-200 border border-white/10"
+              >
+                {highlight}
+              </span>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.div>
   )
