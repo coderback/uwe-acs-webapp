@@ -10,38 +10,12 @@ import {
   PaperAirplaneIcon
 } from '@heroicons/react/24/outline'
 
-const contactInfo = [
-  {
-    icon: EnvelopeIcon,
-    title: 'Email Us',
-    details: 'contact@uweacs.org',
-    description: 'Send us a message anytime'
-  },
-  {
-    icon: PhoneIcon,
-    title: 'Call Us',
-    details: '+44 (0)117 123 4567',
-    description: 'Available during office hours'
-  },
-  {
-    icon: MapPinIcon,
-    title: 'Visit Us',
-    details: 'UWE Bristol Students\' Union',
-    description: 'Find us at the main campus'
-  },
-  {
-    icon: ClockIcon,
-    title: 'Office Hours',
-    details: 'Mon-Fri: 10AM-4PM',
-    description: 'Drop by for assistance'
-  }
-]
+const contactInfo: never[] = []
 
 const socialLinks = [
+  { name: 'WhatsApp', href: '#', color: 'from-green-500 to-green-600' },
   { name: 'Instagram', href: '#', color: 'from-pink-500 to-purple-500' },
-  { name: 'TikTok', href: '#', color: 'from-black to-gray-800' },
-  { name: 'X (Twitter)', href: '#', color: 'from-blue-400 to-blue-600' },
-  { name: 'Facebook', href: '#', color: 'from-blue-600 to-blue-800' }
+  { name: 'TikTok', href: '#', color: 'from-black to-gray-800' }
 ]
 
 export default function ContactSection() {
@@ -92,27 +66,6 @@ export default function ContactSection() {
             We&apos;d love to hear from you and connect with our community.
           </p>
         </motion.div>
-
-        {/* Contact Information */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-          {contactInfo.map((info, index) => (
-            <motion.div
-              key={info.title}
-              className="text-center p-6 bg-gray-900 rounded-2xl hover-lift"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <div className="w-12 h-12 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                <info.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-lg font-bold text-white mb-2">{info.title}</h3>
-              <p className="text-base font-semibold text-acs-red-500 mb-2">{info.details}</p>
-              <p className="text-sm text-gray-100">{info.description}</p>
-            </motion.div>
-          ))}
-        </div>
 
         <div className="grid lg:grid-cols-2 gap-16">
           {/* Contact Form */}

@@ -320,8 +320,8 @@ export default function CommitteeSection() {
   }
 
   return (
-    <section id="committee" className="py-12 sm:py-16 lg:py-20" style={{backgroundColor: '#0b0b0b'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="committee" className="py-0">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
           className="text-center mb-12 sm:mb-16"
@@ -464,6 +464,6 @@ export default function CommitteeSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   )
 }

@@ -1,65 +1,205 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   CalendarIcon,
   ClockIcon,
   MapPinIcon,
   UsersIcon,
-  TicketIcon
+  TicketIcon,
+  SparklesIcon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import Image from 'next/image'
 import { formatDate } from '@/lib/utils'
+
+const palette = {
+  red: '#E11D48',
+  green: '#16A34A',
+  black: '#0B0B0B',
+}
 
 const events = [
   {
     id: 1,
     title: 'African Cultural Night',
-    description: 'Experience the vibrant traditions of Africa through music, dance, food, and storytelling.',
+    description: 'Experience the vibrant traditions of Africa through music, dance, food, and storytelling. Join us for an evening celebrating our rich heritage.',
     date: new Date('2024-09-15'),
     time: '18:00',
     location: 'UWE Students\' Union',
-    capacity: 200,
-    registered: 145,
     price: 'Free',
     category: 'cultural',
     status: 'upcoming',
+    imageUrl: '/poster.jpg',
+    highlights: ['Live Music', 'Traditional Dance', 'Food Tasting', 'Storytelling']
   },
   {
     id: 2,
     title: 'Caribbean Food Festival',
-    description: 'Taste authentic Caribbean cuisine prepared by our talented community members.',
+    description: 'Taste authentic Caribbean cuisine prepared by our talented community members. A culinary journey through the islands.',
     date: new Date('2024-09-22'),
     time: '12:00',
     location: 'UWE Campus Green',
-    capacity: 150,
-    registered: 89,
     price: '£8',
     category: 'food',
     status: 'upcoming',
+    imageUrl: '/poster.jpg',
+    highlights: ['Authentic Cuisine', 'Cooking Demos', 'Live DJ', 'Cultural Music']
   },
   {
     id: 3,
     title: 'Networking & Career Fair',
-    description: 'Connect with successful professionals from African and Caribbean backgrounds.',
+    description: 'Connect with successful professionals from African and Caribbean backgrounds. Build your network and explore career opportunities.',
     date: new Date('2024-10-05'),
     time: '14:00',
     location: 'UWE Business School',
-    capacity: 100,
-    registered: 67,
     price: 'Free',
     category: 'professional',
     status: 'upcoming',
+    imageUrl: '/poster.jpg',
+    highlights: ['Industry Leaders', 'CV Reviews', 'Mock Interviews', 'Workshops']
   },
 ]
 
 const categories = [
-  { id: 'all', name: 'All Events' },
-  { id: 'cultural', name: 'Cultural' },
-  { id: 'food', name: 'Food & Drink' },
-  { id: 'professional', name: 'Professional' },
+  { id: 'all', name: 'All Events', icon: SparklesIcon },
+  { id: 'cultural', name: 'Cultural', icon: CalendarIcon },
+  { id: 'food', name: 'Food & Drink', icon: SparklesIcon },
+  { id: 'professional', name: 'Professional', icon: UsersIcon },
 ]
+
+type EventCardProps = {
+  event: typeof events[0];
+  index: number;
+}
+
+function EventCard({ event, index }: EventCardProps) {
+  const [isHovered, setIsHovered] = useState(false)
+
+  const getCategoryColor = (category: string) => {
+    const colors = {
+      cultural: 'from-rose-500/20 to-red-500/20 text-rose-200',
+      food: 'from-green-500/20 to-emerald-500/20 text-green-200',
+      professional: 'from-blue-500/20 to-indigo-500/20 text-blue-200'
+    }
+    return colors[category as keyof typeof colors] || 'from-gray-500/20 to-slate-500/20 text-gray-200'
+  }
+
+
+  return (
+    <motion.div
+      className="group relative w-full max-w-[400px] mx-auto rounded-[1.6rem] p-[2px]
+                bg-[conic-gradient(at_10%_10%,#ef4444,black_120deg,#22c55e_240deg,#ef4444_360deg)]
+                shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_25px_60px_rgba(0,0,0,0.55)]"
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      whileHover={{ y: -8, scale: 1.02 }}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      <div className="relative rounded-[1.5rem] overflow-hidden bg-neutral-950">
+        {/* Event Image - Full visibility */}
+        <div className="relative aspect-[3/2] w-full">
+          {event.imageUrl ? (
+            <Image
+              src={event.imageUrl}
+              alt={event.title}
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          ) : (
+            <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center">
+              <div className="text-center text-white">
+                <CalendarIcon className="w-12 h-12 mx-auto mb-2 opacity-60" />
+                <div className="text-lg font-semibold">{event.category}</div>
+              </div>
+            </div>
+          )}
+
+          {/* Category and Price badges - positioned to not block poster */}
+          <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium backdrop-blur-md bg-gradient-to-r ${getCategoryColor(event.category)} border border-white/20`}>
+              {categories.find(c => c.id === event.category)?.name}
+            </span>
+            <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-black backdrop-blur-md border border-white/20">
+              {event.price}
+            </span>
+          </div>
+        </div>
+
+        {/* Separate Glass card with event information */}
+        <div className="p-4 bg-neutral-900/90 backdrop-blur-sm">
+          <div className="mb-3">
+            <h3 className="text-lg font-bold text-white mb-1">{event.title}</h3>
+            <p className="text-sm text-neutral-200 line-clamp-2 group-hover:line-clamp-none transition-all duration-300">
+              {event.description}
+            </p>
+          </div>
+
+          {/* Event details */}
+          <div className="space-y-2 mb-4 text-sm text-neutral-200">
+            <div className="flex items-center gap-2">
+              <CalendarIcon className="w-4 h-4 text-[#ef4444] flex-shrink-0" />
+              <span className="truncate">{formatDate(event.date)}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <ClockIcon className="w-4 h-4 text-[#ef4444] flex-shrink-0" />
+              <span>{event.time}</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPinIcon className="w-4 h-4 text-[#ef4444] flex-shrink-0" />
+              <span className="truncate">{event.location}</span>
+            </div>
+          </div>
+
+          {/* Action button */}
+          <motion.button
+            className="w-full px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200
+                     bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white hover:shadow-lg"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <div className="flex items-center justify-center gap-2">
+              <TicketIcon className="w-4 h-4" />
+              Register Now
+            </div>
+          </motion.button>
+        </div>
+
+        {/* Highlights section (expandable on hover) */}
+        <motion.div
+          className="overflow-hidden bg-neutral-900/90 backdrop-blur-sm"
+          initial={{ height: 0, opacity: 0 }}
+          animate={{
+            height: isHovered ? 'auto' : 0,
+            opacity: isHovered ? 1 : 0
+          }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
+        >
+          <div className="p-4 border-t border-white/10">
+            <h4 className="text-sm font-semibold text-white mb-2 flex items-center gap-2">
+              <SparklesIcon className="w-4 h-4 text-yellow-400" />
+              Event Highlights
+            </h4>
+            <div className="flex flex-wrap gap-1.5">
+              {event.highlights?.map((highlight, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-1 text-xs rounded-full bg-white/10 text-neutral-200 border border-white/10"
+                >
+                  {highlight}
+                </span>
+              ))}
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </motion.div>
+  )
+}
 
 export default function EventsSection() {
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -68,18 +208,65 @@ export default function EventsSection() {
     selectedCategory === 'all' || event.category === selectedCategory
   )
 
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      cultural: 'bg-red-100 text-red-800',
-      food: 'bg-green-100 text-green-800',
-      professional: 'bg-blue-100 text-blue-800'
-    }
-    return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800'
-  }
+  // Enhanced background with animated shapes
+  const backgroundShapes = useMemo(() => (
+    <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <motion.div
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl"
+        style={{
+          background: `radial-gradient(circle, ${palette.red}15, transparent)`,
+        }}
+        animate={{
+          x: [0, 50, 0],
+          y: [0, -30, 0],
+          scale: [1, 1.1, 1],
+        }}
+        transition={{
+          duration: 8,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl"
+        style={{
+          background: `radial-gradient(circle, ${palette.green}10, transparent)`,
+        }}
+        animate={{
+          x: [0, -40, 0],
+          y: [0, 40, 0],
+          scale: [1, 0.9, 1],
+        }}
+        transition={{
+          duration: 10,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+      <motion.div
+        className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full blur-2xl"
+        style={{
+          background: `radial-gradient(circle, rgba(255,255,255,0.08), transparent)`,
+          transform: 'translate(-50%, -50%)'
+        }}
+        animate={{
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3]
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+      />
+    </div>
+  ), [])
 
   return (
-    <section id="events" className="py-20" style={{backgroundColor: '#0b0b0b'}}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="events" className="relative py-20 pattern-overlay" style={{backgroundColor: '#0b0b0b'}}>
+      {backgroundShapes}
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -96,7 +283,7 @@ export default function EventsSection() {
           </p>
         </motion.div>
 
-        {/* Filter */}
+        {/* Enhanced Filter */}
         <motion.div
           className="flex justify-center mb-12"
           initial={{ opacity: 0, y: 20 }}
@@ -104,142 +291,71 @@ export default function EventsSection() {
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
         >
-          <div className="flex flex-wrap gap-2 bg-gray-800 rounded-full p-2 shadow-lg">
-            {categories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => setSelectedCategory(category.id)}
-                className={`px-6 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  selectedCategory === category.id
-                    ? 'bg-acs-red-500 text-white shadow-lg scale-105'
-                    : 'text-gray-100 hover:bg-gray-700'
-                }`}
-              >
-                {category.name}
-              </button>
-            ))}
+          <div className="flex flex-wrap gap-2 bg-black/40 backdrop-blur-xl rounded-2xl p-3 shadow-2xl border border-white/10">
+            {categories.map((category, index) => {
+              const Icon = category.icon
+              return (
+                <motion.button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                    selectedCategory === category.id
+                      ? 'bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white shadow-lg ring-2 ring-white/20'
+                      : 'text-gray-200 hover:bg-white/10 hover:text-white'
+                  }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Icon className="w-4 h-4" />
+                  {category.name}
+                </motion.button>
+              )
+            })}
           </div>
         </motion.div>
 
-        {/* Events Grid */}
+        {/* Enhanced Events Grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedCategory}
-            className="grid lg:grid-cols-3 gap-8"
+            className="grid md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
           >
             {filteredEvents.map((event, index) => (
-              <motion.div
-                key={event.id}
-                className="bg-gray-900 rounded-2xl shadow-lg overflow-hidden hover-lift"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                {/* Event Image */}
-                <div className="relative h-48 bg-gradient-to-br from-acs-red-500 to-acs-green-500">
-                  <div className="absolute inset-0 bg-black/20"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCategoryColor(event.category)}`}>
-                      {categories.find(c => c.id === event.category)?.name}
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/90 text-acs-black-800">
-                      {event.price}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Event Content */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-white mb-3">{event.title}</h3>
-                  <p className="text-gray-100 mb-4 line-clamp-2">{event.description}</p>
-
-                  {/* Event Details */}
-                  <div className="space-y-2 mb-6">
-                    <div className="flex items-center text-sm text-gray-100">
-                      <CalendarIcon className="w-4 h-4 mr-2 text-acs-red-500" />
-                      {formatDate(event.date)}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-100">
-                      <ClockIcon className="w-4 h-4 mr-2 text-acs-red-500" />
-                      {event.time}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-100">
-                      <MapPinIcon className="w-4 h-4 mr-2 text-acs-red-500" />
-                      {event.location}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-100">
-                      <UsersIcon className="w-4 h-4 mr-2 text-acs-red-500" />
-                      {event.registered}/{event.capacity} attending
-                    </div>
-                  </div>
-
-                  {/* Capacity Bar */}
-                  <div className="mb-6">
-                    <div className="flex justify-between text-xs text-gray-100 mb-2">
-                      <span>Capacity</span>
-                      <span>{Math.round((event.registered / event.capacity) * 100)}% full</span>
-                    </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
-                      <motion.div
-                        className="bg-gradient-to-r from-acs-red-500 to-acs-green-500 h-2 rounded-full"
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${(event.registered / event.capacity) * 100}%` }}
-                        transition={{ duration: 1, delay: 0.5 }}
-                        viewport={{ once: true }}
-                      />
-                    </div>
-                  </div>
-
-                  {/* Action Button */}
-                  <motion.button
-                    className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
-                      event.registered >= event.capacity
-                        ? 'bg-acs-black-200 text-acs-black-500 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600 shadow-lg hover:shadow-xl transform hover:scale-105'
-                    }`}
-                    disabled={event.registered >= event.capacity}
-                    whileHover={event.registered < event.capacity ? { scale: 1.02 } : {}}
-                    whileTap={event.registered < event.capacity ? { scale: 0.98 } : {}}
-                  >
-                    {event.registered >= event.capacity ? (
-                      <>
-                        <TicketIcon className="w-5 h-5 inline mr-2" />
-                        Event Full
-                      </>
-                    ) : (
-                      <>
-                        <TicketIcon className="w-5 h-5 inline mr-2" />
-                        Register Now
-                      </>
-                    )}
-                  </motion.button>
-                </div>
-              </motion.div>
+              <EventCard key={event.id} event={event} index={index} />
             ))}
           </motion.div>
         </AnimatePresence>
 
-        {/* View All Events Link */}
+        {/* Enhanced View All Events Link */}
         <motion.div
-          className="text-center mt-12"
+          className="text-center mt-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.3 }}
           viewport={{ once: true }}
         >
-          <Link
-            href="/events"
-            className="inline-flex items-center px-6 py-3 text-acs-red-500 border-2 border-acs-red-500 rounded-full hover:bg-acs-red-500 hover:text-white transition-all duration-200 font-semibold"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
-            View All Events
-            <CalendarIcon className="w-5 h-5 ml-2" />
-          </Link>
+            <Link
+              href="/events"
+              className="group relative inline-flex items-center px-8 py-4 text-white border-2 border-white/20 rounded-full
+                       bg-white/5 backdrop-blur-xl hover:bg-gradient-to-r hover:from-[#ef4444] hover:to-[#22c55e]
+                       hover:border-transparent transition-all duration-300 font-semibold shadow-xl"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-[#ef4444]/20 to-[#22c55e]/20 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className="relative z-10">View All Events</span>
+              <CalendarIcon className="relative z-10 w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -49,7 +49,7 @@ const membershipTiers = [
   },
   {
     name: 'Premium Member',
-    price: '£15',
+    price: '£5',
     description: 'Enhanced membership with exclusive benefits',
     features: [
       'Everything in Student Member',

@@ -5,7 +5,6 @@ import { SparklesIcon, ArrowRightIcon } from '@heroicons/react/24/outline'
 import { useRef, useMemo } from 'react'
 import Image from 'next/image'
 import AboutSection from '@/components/AboutSection'
-import CommitteeSection from '@/components/CommitteeSection'
 import EventsSection from '@/components/EventsSection'
 import MembershipSection from '@/components/MembershipSection'
 import ContactSection from '@/components/ContactSection'
@@ -237,14 +236,8 @@ export default function Home() {
       {/* Palm Leaf Divider */}
       <PalmLeafDivider />
 
-      {/* About Section */}
+      {/* About & Committee Section */}
       <AboutSection />
-
-      {/* Palm Leaf Divider */}
-      <PalmLeafDivider flip />
-
-      {/* Committee Section */}
-      <CommitteeSection />
 
       {/* Palm Leaf Divider */}
       <PalmLeafDivider />
