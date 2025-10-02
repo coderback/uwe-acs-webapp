@@ -8,7 +8,10 @@ import {
   MapPinIcon,
   UsersIcon,
   TicketIcon,
-  SparklesIcon
+  SparklesIcon,
+  AcademicCapIcon,
+  TrophyIcon,
+  MusicalNoteIcon
 } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -67,6 +70,7 @@ const categories = [
   { id: 'cultural', name: 'Cultural', icon: CalendarIcon },
   { id: 'food', name: 'Food & Drink', icon: SparklesIcon },
   { id: 'professional', name: 'Professional', icon: UsersIcon },
+  { id: 'social', name: 'Social', icon: UsersIcon },
 ]
 
 type EventCardProps = {
@@ -79,7 +83,8 @@ function EventCard({ event, index }: EventCardProps) {
     const colors = {
       cultural: 'from-rose-500/20 to-red-500/20 text-rose-200',
       food: 'from-green-500/20 to-emerald-500/20 text-green-200',
-      professional: 'from-blue-500/20 to-indigo-500/20 text-blue-200'
+      professional: 'from-blue-500/20 to-indigo-500/20 text-blue-200',
+      social: 'from-purple-500/20 to-pink-500/20 text-purple-200'
     }
     return colors[category as keyof typeof colors] || 'from-gray-500/20 to-slate-500/20 text-gray-200'
   }

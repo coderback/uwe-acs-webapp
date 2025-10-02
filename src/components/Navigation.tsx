@@ -96,9 +96,14 @@ export default function Navigation() {
       {/* Enhanced background with gradient overlay */}
       <div className={cn(
         'absolute inset-0 transition-all duration-500',
-        scrolled 
-          ? 'bg-gradient-to-r from-black/80 via-black/70 to-black/80 shadow-xl border-b border-white/10'
+        scrolled
+          ? 'bg-gradient-to-r from-black/80 via-black/70 to-black/80 shadow-xl'
           : 'bg-transparent'
+      )} />
+      {/* Seamless border that fades in/out */}
+      <div className={cn(
+        'absolute inset-x-0 bottom-0 h-px bg-white/10 transition-opacity duration-500',
+        scrolled ? 'opacity-100' : 'opacity-0'
       )} />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-16 lg:h-20">
@@ -189,18 +194,21 @@ export default function Navigation() {
               whileTap={{ scale: 0.95 }}
             >
               <span className="sr-only">{isOpen ? 'Close' : 'Open'} main menu</span>
-              <div className="relative w-6 h-6">
+              <div className="relative w-6 h-5 flex flex-col justify-center items-center">
                 <motion.span
-                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
+                  className="absolute block h-0.5 w-6 bg-current"
                   animate={isOpen ? { rotate: 45, y: 0 } : { rotate: 0, y: -8 }}
+                  transition={{ duration: 0.3 }}
                 />
                 <motion.span
-                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
-                  animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className="absolute block h-0.5 w-6 bg-current"
+                  animate={isOpen ? { opacity: 0 } : { opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
                 />
                 <motion.span
-                  className="absolute block h-0.5 w-6 bg-current transform transition-all duration-300"
+                  className="absolute block h-0.5 w-6 bg-current"
                   animate={isOpen ? { rotate: -45, y: 0 } : { rotate: 0, y: 8 }}
+                  transition={{ duration: 0.3 }}
                 />
               </div>
             </motion.button>
