@@ -23,43 +23,17 @@ const palette = {
 const events = [
   {
     id: 1,
-    title: 'African Cultural Night',
-    description: 'Experience the vibrant traditions of Africa through music, dance, food, and storytelling. Join us for an evening celebrating our rich heritage.',
-    date: new Date('2024-09-15'),
-    time: '18:00',
-    location: 'UWE Students\' Union',
+    title: 'Meet & Greet',
+    description: 'A fun evening of music, games, and good vibes while getting to know our community.',
+    date: new Date('2025-10-07'),
+    time: '18:30',
+    location: '2Q42, UWE Bristol',
     price: 'Free',
-    category: 'cultural',
+    category: 'Social',
     status: 'upcoming',
     imageUrl: '/poster.jpg',
-    highlights: ['Live Music', 'Traditional Dance', 'Food Tasting', 'Storytelling']
-  },
-  {
-    id: 2,
-    title: 'Caribbean Food Festival',
-    description: 'Taste authentic Caribbean cuisine prepared by our talented community members. A culinary journey through the islands.',
-    date: new Date('2024-09-22'),
-    time: '12:00',
-    location: 'UWE Campus Green',
-    price: '£8',
-    category: 'food',
-    status: 'upcoming',
-    imageUrl: '/poster.jpg',
-    highlights: ['Authentic Cuisine', 'Cooking Demos', 'Live DJ', 'Cultural Music']
-  },
-  {
-    id: 3,
-    title: 'Networking & Career Fair',
-    description: 'Connect with successful professionals from African and Caribbean backgrounds. Build your network and explore career opportunities.',
-    date: new Date('2024-10-05'),
-    time: '14:00',
-    location: 'UWE Business School',
-    price: 'Free',
-    category: 'professional',
-    status: 'upcoming',
-    imageUrl: '/poster.jpg',
-    highlights: ['Industry Leaders', 'CV Reviews', 'Mock Interviews', 'Workshops']
-  },
+    highlights: ['Music', 'Ice Breakers', 'Free Snacks', 'Prize Draw', 'Announcements']
+  }
 ]
 
 const categories = [

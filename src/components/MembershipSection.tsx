@@ -34,14 +34,10 @@ const benefits = [
 
 const membershipTiers = [
   {
-    name: 'Student Member',
+    name: 'Non-Member',
     price: 'Free',
-    description: 'Perfect for UWE students wanting to join our community',
+    description: 'Perfect for anyone interested in our society',
     features: [
-      'Access to all society events',
-      'Discounts on paid events',
-      'Academic support network',
-      'Cultural workshops',
       'Social media community access'
     ],
     popular: true,
@@ -52,11 +48,10 @@ const membershipTiers = [
     price: '£5',
     description: 'Enhanced membership with exclusive benefits',
     features: [
-      'Everything in Student Member',
-      'Free entry to premium events',
+      'Discounts on paid events',
       'Exclusive networking sessions',
-      'Priority event booking',
-      'ACS merchandise package'
+      'Access to all society events',
+      'Academic support network',
     ],
     popular: false,
     buttonText: 'Upgrade to Premium',
