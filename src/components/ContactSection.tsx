@@ -110,7 +110,7 @@ export default function ContactSection() {
                     required
                     value={formData.name}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 placeholder:text-neutral-400"
                     placeholder="Your full name"
                   />
                 </div>
@@ -125,7 +125,7 @@ export default function ContactSection() {
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                    className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 placeholder:text-neutral-400"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -141,7 +141,7 @@ export default function ContactSection() {
                   required
                   value={formData.subject}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
                 >
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
@@ -165,7 +165,7 @@ export default function ContactSection() {
                   required
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-500 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical"
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical placeholder:text-neutral-400"
                   placeholder="Tell us more about your inquiry..."
                 ></textarea>
               </div>
@@ -230,7 +230,7 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="bg-gray-900 rounded-2xl p-6">
+            <div className="bg-neutral-900 rounded-2xl p-6">
               <h4 className="text-lg font-bold text-white mb-4">Quick Questions?</h4>
               <div className="space-y-3">
                 <div>

@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { motion, useMotionValue } from 'framer-motion'
-import { EnvelopeIcon, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
+import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline'
 import Image from 'next/image'
 
 const committee = [
@@ -127,47 +127,27 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
           )}
 
           {/* bottom vignette */}
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/85 via-black/40 to-transparent" />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-          {/* Glass overlay content */}
+          {/* Glass overlay content - Minimal */}
           <div
             className="absolute inset-x-2 bottom-2 sm:inset-x-3 sm:bottom-3 lg:inset-x-4 lg:bottom-4 rounded-2xl
                        bg-white/5 backdrop-blur-xl ring-1 ring-white/10
-                       p-3 sm:p-4 lg:p-5 text-white"
+                       p-3 sm:p-3.5 lg:p-4 text-white"
           >
-            <div className="flex items-center justify-between gap-2 sm:gap-3">
+            <div className="flex items-start justify-between gap-2 mb-2 sm:mb-3">
               <div className="min-w-0 flex-1">
                 <h3 className="text-base sm:text-lg lg:text-xl font-semibold leading-tight">{member.name}</h3>
-                <p className="text-sm sm:text-base text-neutral-200">{member.role}</p>
+                <p className="text-xs sm:text-sm text-neutral-200">{member.role}</p>
               </div>
-              {/* Hover hint pill (desktop only) */}
-              <span className="hidden lg:inline text-[10px] sm:text-[11px] px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full bg-white/10 ring-1 ring-white/15 flex-shrink-0">
-                Hover for more
-              </span>
             </div>
 
-            <p className="mt-2 sm:mt-3 text-sm sm:text-base leading-5 sm:leading-6 text-neutral-200 line-clamp-3 sm:line-clamp-4 group-hover:line-clamp-none transition-all duration-300">
-              {member.bio}
-            </p>
-
-            {/* Course and Year chips */}
-            <div className="mt-2 sm:mt-3 flex flex-wrap gap-1 sm:gap-2">
-              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-white/10 ring-1 ring-white/15">
-                <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#ef4444]" />
-                <span className="truncate max-w-[80px] sm:max-w-none">{member.course}</span>
-              </span>
-              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-1.5 sm:px-2.5 py-0.5 sm:py-1 text-[10px] sm:text-xs rounded-full bg-white/10 ring-1 ring-white/15">
-                <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#22c55e]" />
-                {member.year}
-              </span>
-            </div>
-
-            {/* CTA Buttons */}
-            <div className="mt-3 sm:mt-4 flex items-center justify-between gap-2">
+            {/* CTA Buttons - Compact */}
+            <div className="flex items-center justify-center gap-3 sm:gap-4">
               <button
                 type="button"
                 onClick={() => setOpen(!open)}
-                className="inline-flex items-center gap-1 sm:gap-2 px-3 sm:px-5 py-2 sm:py-2.5 text-sm sm:text-base font-medium rounded-full
+                className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full
                            bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white
                            hover:shadow-lg transform hover:scale-105 transition-all duration-200
                            focus:outline-none focus:ring-2 focus:ring-white/20"
@@ -175,13 +155,17 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
                 {open ? 'Hide' : 'Details'}
               </button>
               <a
-                href={`mailto:${member.linkedin}`}
-                className="inline-flex items-center gap-1 px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm rounded-full
                            bg-white/10 hover:bg-white/20 ring-1 ring-white/15 text-white
                            transition-all duration-200"
               >
-                <EnvelopeIcon className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                <span className="hidden sm:inline">Contact</span>
+                <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                <span className="hidden sm:inline text-xs">LinkedIn</span>
               </a>
             </div>
           </div>
@@ -220,10 +204,22 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
               </div>
             </div>
 
-            <p className="mt-2 sm:mt-3 text-xs sm:text-sm text-neutral-300 leading-5 sm:leading-6">{member.bio}</p>
+            {/* Course and Year chips */}
+            <div className="mb-3 sm:mb-4 flex flex-wrap gap-1 sm:gap-2">
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs rounded-full bg-white/10 ring-1 ring-white/15">
+                <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#ef4444]" />
+                <span className="truncate max-w-[100px] sm:max-w-none">{member.course}</span>
+              </span>
+              <span className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 text-[10px] sm:text-xs rounded-full bg-white/10 ring-1 ring-white/15">
+                <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#22c55e]" />
+                {member.year}
+              </span>
+            </div>
+
+            <p className="mb-3 sm:mb-4 text-xs sm:text-sm text-neutral-300 leading-5 sm:leading-6">{member.bio}</p>
 
             {member.interests.length > 0 && (
-              <div className="mt-3 sm:mt-4">
+              <div className="mb-3 sm:mb-4">
                 <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wide text-neutral-400 mb-2">
                   Interests
                 </p>
@@ -241,20 +237,10 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
               </div>
             )}
 
-            <div className="mt-3 sm:mt-4 flex items-center justify-between">
-              <div className="flex gap-2 sm:gap-3 text-[10px] sm:text-xs text-neutral-400">
-                <span className="inline-flex items-center gap-1 sm:gap-1.5">
-                  <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#ef4444]" />
-                  <span className="truncate max-w-[80px] sm:max-w-none">{member.course}</span>
-                </span>
-                <span className="inline-flex items-center gap-1 sm:gap-1.5">
-                  <i className="h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full bg-[#22c55e]" />
-                  {member.year}
-                </span>
-              </div>
+            <div className="flex justify-end">
               <button
                 onClick={() => setOpen(false)}
-                className="text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1 rounded-md bg-white/5 hover:bg-white/10 ring-1 ring-white/10 text-neutral-300"
+                className="text-[10px] sm:text-xs px-3 sm:px-4 py-1 sm:py-1.5 rounded-full bg-white/5 hover:bg-white/10 ring-1 ring-white/10 text-neutral-300 transition-all duration-200"
               >
                 Close
               </button>

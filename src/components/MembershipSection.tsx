@@ -103,7 +103,7 @@ export default function MembershipSection() {
           {membershipTiers.map((tier, index) => (
             <motion.div
               key={tier.name}
-              className="relative bg-gray-900 rounded-2xl overflow-hidden border border-gray-800 hover:border-gray-700 transition-all duration-300"
+              className="relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all duration-300"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
@@ -137,7 +137,7 @@ export default function MembershipSection() {
                   className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
                     tier.popular
                       ? 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600 shadow-lg'
-                      : 'bg-gray-800 text-white hover:bg-gray-700 border border-gray-700'
+                      : 'bg-neutral-800 text-white hover:bg-neutral-700 border border-neutral-700'
                   }`}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
