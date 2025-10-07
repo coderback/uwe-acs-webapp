@@ -115,7 +115,7 @@ export default function Navigation() {
             <Link href="/" className="flex items-center space-x-3">
               {/* Enhanced logo with gradient ring */}
               <div className="relative">
-                <div className="absolute -inset-1 bg-gradient-to-r from-rose-500 to-green-500 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-300" />
+                <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-300" style={{ backgroundColor: '#e11d47' }} />
                 <div className="relative bg-black/20 rounded-full p-1 backdrop-blur-sm">
                   <Image 
                     src="/logo.jpg"
@@ -129,7 +129,7 @@ export default function Navigation() {
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-lg lg:text-xl font-bold text-white tracking-tight">
-                  UWE <span className="bg-gradient-to-r from-rose-400 to-green-400 bg-clip-text text-transparent font-extrabold">ACS</span>
+                  UWE <span className="font-extrabold" style={{ color: '#e11d47' }}>ACS</span>
                 </h1>
                 <p className="text-xs text-white/70 -mt-0.5 font-medium">
                   African Caribbean Society
@@ -172,7 +172,8 @@ export default function Navigation() {
                       {/* Active state glow effect */}
                       {(activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')) && (
                         <motion.div
-                          className="absolute inset-0 bg-gradient-to-r from-rose-500/20 to-green-500/20 rounded-full"
+                          className="absolute inset-0 rounded-full"
+                          style={{ backgroundColor: 'rgba(225,29,72,0.2)' }}
                           layoutId="activeNav"
                           transition={{ type: "spring", stiffness: 400, damping: 30 }}
                         />
@@ -245,9 +246,10 @@ export default function Navigation() {
                   className={cn(
                     "flex items-center px-4 py-3 rounded-xl text-base font-medium transition-all duration-200",
                     activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero')
-                      ? "text-white bg-gradient-to-r from-rose-500/20 to-green-500/20 border border-white/20"
+                      ? "text-white border border-white/20"
                       : "text-white/90 hover:text-white hover:bg-white/10"
                   )}
+                  style={activeSection === item.href.replace('#', '') || (item.href === '#hero' && activeSection === 'hero') ? { backgroundColor: 'rgba(225,29,72,0.2)' } : {}}
                   onClick={() => setIsOpen(false)}
                 >
                   <SparklesIcon className="w-4 h-4 mr-3 opacity-60" />
@@ -265,7 +267,8 @@ export default function Navigation() {
             >
               <Link
                 href="#membership"
-                className="flex items-center justify-center px-6 py-3 bg-gradient-to-r from-rose-500 to-green-500 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                className="flex items-center justify-center px-6 py-3 text-white font-semibold rounded-xl hover:shadow-lg transition-all duration-300"
+                style={{ backgroundColor: '#e11d47' }}
                 onClick={() => setIsOpen(false)}
               >
                 Join Our Community

@@ -199,8 +199,8 @@ export default function Home() {
             >
               <div className="relative group">
                 {/* Decorative rings */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-rose-500/20 via-transparent to-green-500/20 rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" aria-hidden="true" />
-                <div className="absolute -inset-2 bg-gradient-to-r from-rose-500/10 to-green-500/10 rounded-3xl" aria-hidden="true" />
+                <div className="absolute -inset-4 rounded-3xl blur-xl opacity-60 group-hover:opacity-80 transition-opacity duration-500" style={{ background: 'radial-gradient(circle, rgba(225,29,72,0.2), transparent)' }} aria-hidden="true" />
+                <div className="absolute -inset-2 rounded-3xl" style={{ background: 'linear-gradient(135deg, rgba(225,29,72,0.1), transparent)' }} aria-hidden="true" />
                 
                 <div className="relative overflow-hidden rounded-2xl shadow-2xl backdrop-blur-sm">
                   <Image

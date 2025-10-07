@@ -89,7 +89,7 @@ export default function MembershipSection() {
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: '#e11d47' }}>
                 <benefit.icon className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-white mb-4">{benefit.title}</h3>
@@ -111,7 +111,7 @@ export default function MembershipSection() {
               whileHover={{ y: -4 }}
             >
               {tier.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white text-center py-2 text-xs font-semibold uppercase tracking-wide">
+                <div className="absolute top-0 left-0 right-0 text-white text-center py-2 text-xs font-semibold uppercase tracking-wide" style={{ backgroundColor: '#e11d47' }}>
                   Most Popular
                 </div>
               )}
@@ -136,9 +136,10 @@ export default function MembershipSection() {
                 <motion.button
                   className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
                     tier.popular
-                      ? 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600 shadow-lg'
+                      ? 'text-white shadow-lg'
                       : 'bg-neutral-800 text-white hover:bg-neutral-700 border border-neutral-700'
                   }`}
+                  style={tier.popular ? { backgroundColor: '#e11d47' } : {}}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -168,7 +169,8 @@ export default function MembershipSection() {
             href="https://www.uwe.ac.uk/students/student-life/student-activities/societies"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-acs-red-500 to-acs-green-500 rounded-full hover:from-acs-red-600 hover:to-acs-green-600 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+            style={{ backgroundColor: '#e11d47' }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >

@@ -288,8 +288,9 @@ export default function Suggestions() {
                 className={`w-full px-8 py-4 rounded-full font-semibold transition-all duration-200 ${
                   isSubmitting
                     ? 'bg-acs-black-300 text-acs-black-500 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-acs-red-500 to-acs-green-500 text-white hover:from-acs-red-600 hover:to-acs-green-600 shadow-lg hover:shadow-xl transform hover:scale-105'
+                    : 'text-white shadow-lg hover:shadow-xl transform hover:scale-105'
                 }`}
+                style={!isSubmitting ? { backgroundColor: '#e11d47' } : {}}
                 whileHover={!isSubmitting ? { scale: 1.02 } : {}}
                 whileTap={!isSubmitting ? { scale: 0.98 } : {}}
               >

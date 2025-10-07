@@ -82,7 +82,7 @@ function EventCard({ event, index }: EventCardProps) {
               className="object-cover"
             />
           ) : (
-            <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center">
+            <div className="absolute inset-0 h-full w-full flex items-center justify-center" style={{ backgroundColor: '#e11d47' }}>
               <div className="text-center text-white">
                 <CalendarIcon className="w-12 h-12 mx-auto mb-2 opacity-60" />
                 <div className="text-lg font-semibold">{event.category}</div>
@@ -129,7 +129,8 @@ function EventCard({ event, index }: EventCardProps) {
           {/* Action button */}
           <button
             className="w-full px-4 py-2.5 rounded-full text-sm font-semibold
-                     bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white"
+                     text-white"
+                     style={{ backgroundColor: '#e11d47' }}
           >
             <div className="flex items-center justify-center gap-2">
               <TicketIcon className="w-4 h-4" />
@@ -259,9 +260,10 @@ export default function EventsSection() {
                   onClick={() => setSelectedCategory(category.id)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                     selectedCategory === category.id
-                      ? 'bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white shadow-lg ring-2 ring-white/20'
+                      ? 'text-white shadow-lg ring-2 ring-white/20'
                       : 'text-gray-200 hover:bg-white/10 hover:text-white'
                   }`}
+                  style={selectedCategory === category.id ? { backgroundColor: '#e11d47' } : {}}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   initial={{ opacity: 0, y: 10 }}

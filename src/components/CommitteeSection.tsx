@@ -99,10 +99,13 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
       initial={{ y: 0, scale: 1 }}
       whileHover={{ y: -6 }}
       transition={{ type: "spring", stiffness: 260, damping: 18 }}
-      className={`group relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] mx-auto rounded-[1.6rem] p-[2px]
-                 bg-[conic-gradient(at_10%_10%,#ef4444,black_120deg,#22c55e_240deg,#ef4444_360deg)]
+      className={`group relative w-full max-w-[320px] sm:max-w-[380px] lg:max-w-[420px] mx-auto rounded-[1.6rem] p-[2px] overflow-visible
                  shadow-[0_0_0_1px_rgba(255,255,255,0.06),0_25px_60px_rgba(0,0,0,0.55)]
-                 ${isActive ? 'ring-2 ring-[#ef4444]/50' : ''}`}
+                 ${isActive ? 'ring-2 ring-[#e11d47]/50' : ''}`}
+      style={{
+        background: 'conic-gradient(from 0deg at 50% 50%, #e11d47 0deg, #b01636 120deg, #e11d47 240deg, #b01636 360deg)',
+        animation: 'rotate-border 4s linear infinite'
+      }}
     >
       <div className="relative rounded-[1.5rem] overflow-hidden bg-neutral-950">
         {/* Full-bleed image */}
@@ -116,7 +119,7 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
               className="object-cover"
             />
           ) : (
-            <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center">
+            <div className="absolute inset-0 h-full w-full flex items-center justify-center" style={{ backgroundColor: '#e11d47' }}>
               <div className="text-center text-white">
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-2">
                   {member.name.split(' ').map(n => n[0]).join('')}
@@ -147,10 +150,10 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
               <button
                 type="button"
                 onClick={() => setOpen(!open)}
-                className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full
-                           bg-gradient-to-r from-[#ef4444] to-[#22c55e] text-white
+                className="inline-flex items-center justify-center gap-1.5 px-4 sm:px-5 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-full text-white
                            hover:shadow-lg transform hover:scale-105 transition-all duration-200
                            focus:outline-none focus:ring-2 focus:ring-white/20"
+                style={{ backgroundColor: '#e11d47' }}
               >
                 {open ? 'Hide' : 'Details'}
               </button>
@@ -194,7 +197,7 @@ function CommitteeCard({ member, isActive = false }: CommitteeCardProps) {
                   />
                 </div>
               ) : (
-                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-[#ef4444] to-[#22c55e] flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl flex items-center justify-center text-white font-bold text-xs sm:text-sm flex-shrink-0" style={{ backgroundColor: '#e11d47' }}>
                   {member.name.split(' ').map(n => n[0]).join('')}
                 </div>
               )}
@@ -423,9 +426,10 @@ export default function CommitteeSection() {
                   onClick={() => goToSlide(index)}
                   className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-200 ${
                     index === currentIndex
-                      ? 'bg-gradient-to-r from-[#ef4444] to-[#22c55e] scale-125'
+                      ? 'scale-125'
                       : 'bg-white/30 hover:bg-white/50'
                   }`}
+                  style={index === currentIndex ? { backgroundColor: '#e11d47' } : {}}
                 />
               ))}
             </div>

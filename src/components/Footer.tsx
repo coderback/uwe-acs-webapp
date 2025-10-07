@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import {
   EnvelopeIcon,
@@ -67,8 +68,14 @@ export default function Footer() {
               viewport={{ once: true }}
             >
               <Link href="/" className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center">
-                  <span className="text-white font-bold text-xl">ACS</span>
+                <div className="relative w-12 h-12 rounded-full overflow-hidden bg-black/20">
+                  <Image
+                    src="/logo.jpg"
+                    alt="UWE ACS Logo"
+                    fill
+                    sizes="48px"
+                    className="object-cover"
+                  />
                 </div>
                 <div>
                   <h2 className="text-xl font-bold text-white">
