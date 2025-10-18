@@ -38,23 +38,28 @@ const membershipTiers = [
     price: 'Free',
     description: 'Perfect for anyone interested in our society',
     features: [
-      'Social media community access'
+      'Social media community access',
+      'Attend free events',
+      'Basic event notifications',
+      'Pathway to membership',
     ],
-    popular: true,
+    popular: false,
     buttonText: 'Join for Free',
+    buttonUrl: 'https://chat.whatsapp.com/DkW3l3jegl4A2Xjcolz4cW',
   },
   {
-    name: 'Premium Member',
+    name: 'Student Member',
     price: '£5',
     description: 'Enhanced membership with exclusive benefits',
     features: [
       'Discounts on paid events',
-      'Exclusive networking sessions',
-      'Access to all society events',
-      'Academic support network',
+      'Exclusive networking & professional development',
+      'Voting rights in society decisions',
+      'Giveaways and prizes',
     ],
-    popular: false,
-    buttonText: 'Upgrade to Premium',
+    popular: true,
+    buttonText: 'Upgrade Membership',
+    buttonUrl: 'https://www.thestudentsunion.co.uk/organisation/africancaribbean/',
   },
 ]
 
@@ -133,8 +138,11 @@ export default function MembershipSection() {
                   ))}
                 </ul>
 
-                <motion.button
-                  className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
+                <motion.a
+                  href={tier.buttonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-full px-6 py-3 rounded-full font-semibold transition-all duration-200 inline-block text-center ${
                     tier.popular
                       ? 'text-white shadow-lg'
                       : 'bg-neutral-800 text-white hover:bg-neutral-700 border border-neutral-700'
@@ -144,7 +152,7 @@ export default function MembershipSection() {
                   whileTap={{ scale: 0.98 }}
                 >
                   {tier.buttonText}
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           ))}
@@ -166,7 +174,7 @@ export default function MembershipSection() {
             and create memories that will last a lifetime.
           </p>
           <motion.a
-            href="https://www.uwe.ac.uk/students/student-life/student-activities/societies"
+            href="https://www.thestudentsunion.co.uk/organisation/africancaribbean/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"

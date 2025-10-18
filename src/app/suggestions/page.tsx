@@ -2,15 +2,18 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
+import {
   LightBulbIcon,
   PaperAirplaneIcon,
   EyeSlashIcon,
   UserIcon,
   CalendarIcon,
   SparklesIcon,
-  ChatBubbleLeftRightIcon
+  ChatBubbleLeftRightIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon
 } from '@heroicons/react/24/outline'
+import { useForm } from '@formspree/react'
 
 const suggestionCategories = [
   { id: 'event', name: 'Event Ideas', icon: CalendarIcon },
@@ -21,6 +24,10 @@ const suggestionCategories = [
 ]
 
 export default function Suggestions() {
+  // Formspree hook - Replace 'YOUR_SUGGESTIONS_FORM_ID' with your actual Formspree form ID
+  // Sign up at https://formspree.io to get your form ID
+  const [state, handleSubmit] = useForm("xldpzzzz")
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -29,28 +36,6 @@ export default function Suggestions() {
     description: '',
     anonymous: false
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Reset form
-    setFormData({
-      name: '',
-      email: '',
-      category: '',
-      title: '',
-      description: '',
-      anonymous: false
-    })
-    setIsSubmitting(false)
-    
-    alert('Thank you for your suggestion! We really appreciate your input.')
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -58,6 +43,20 @@ export default function Suggestions() {
       ...formData,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value
     })
+  }
+
+  // Reset form after successful submission
+  if (state.succeeded) {
+    setTimeout(() => {
+      setFormData({
+        name: '',
+        email: '',
+        category: '',
+        title: '',
+        description: '',
+        anonymous: false
+      })
+    }, 3000)
   }
 
   return (
@@ -167,6 +166,40 @@ export default function Suggestions() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
+            {/* Success Message */}
+            {state.succeeded && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-green-500/10 border border-green-500 rounded-lg p-4 mb-6"
+              >
+                <div className="flex items-center">
+                  <CheckCircleIcon className="w-6 h-6 text-green-500 mr-3" />
+                  <div>
+                    <h4 className="text-green-500 font-semibold">Suggestion Submitted!</h4>
+                    <p className="text-green-300 text-sm">Thank you for your input! We really appreciate your suggestion.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {state.errors && state.errors.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-500/10 border border-red-500 rounded-lg p-4 mb-6"
+              >
+                <div className="flex items-center">
+                  <ExclamationCircleIcon className="w-6 h-6 text-red-500 mr-3" />
+                  <div>
+                    <h4 className="text-red-500 font-semibold">Submission Failed</h4>
+                    <p className="text-red-300 text-sm">Please try again or contact us directly via social media.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Anonymous Option */}
               <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
@@ -284,19 +317,19 @@ export default function Suggestions() {
               {/* Submit Button */}
               <motion.button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={state.submitting}
                 className={`w-full px-8 py-4 rounded-full font-semibold transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-acs-black-300 text-acs-black-500 cursor-not-allowed'
+                  state.submitting
+                    ? 'bg-neutral-600 text-neutral-400 cursor-not-allowed'
                     : 'text-white shadow-lg hover:shadow-xl transform hover:scale-105'
                 }`}
-                style={!isSubmitting ? { backgroundColor: '#e11d47' } : {}}
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                style={!state.submitting ? { backgroundColor: '#e11d47' } : {}}
+                whileHover={!state.submitting ? { scale: 1.02 } : {}}
+                whileTap={!state.submitting ? { scale: 0.98 } : {}}
               >
-                {isSubmitting ? (
+                {state.submitting ? (
                   <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-acs-black-600 mr-2"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                     Submitting Suggestion...
                   </div>
                 ) : (

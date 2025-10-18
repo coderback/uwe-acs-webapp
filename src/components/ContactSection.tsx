@@ -3,8 +3,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
-  PaperAirplaneIcon
+  PaperAirplaneIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon
 } from '@heroicons/react/24/outline'
+import { useForm } from '@formspree/react'
 
 const socialLinks = [
   {
@@ -40,33 +43,29 @@ const socialLinks = [
 ]
 
 export default function ContactSection() {
+  // Formspree hook - Replace 'YOUR_FORM_ID' with your actual Formspree form ID
+  // Sign up at https://formspree.io to get your form ID
+  const [state, handleSubmit] = useForm("mdkwbbbw")
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
     message: ''
   })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Reset form
-    setFormData({ name: '', email: '', subject: '', message: '' })
-    setIsSubmitting(false)
-    
-    alert('Thank you for your message! We\'ll get back to you soon.')
-  }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
+  }
+
+  // Reset form after successful submission
+  if (state.succeeded) {
+    setTimeout(() => {
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    }, 3000)
   }
 
   return (
@@ -97,6 +96,41 @@ export default function ContactSection() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold text-white mb-6">Send Us a Message</h3>
+
+            {/* Success Message */}
+            {state.succeeded && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-green-500/10 border border-green-500 rounded-lg p-4 mb-6"
+              >
+                <div className="flex items-center">
+                  <CheckCircleIcon className="w-6 h-6 text-green-500 mr-3" />
+                  <div>
+                    <h4 className="text-green-500 font-semibold">Message Sent Successfully!</h4>
+                    <p className="text-green-300 text-sm">Thank you for your message! We&apos;ll get back to you soon.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Error Message */}
+            {state.errors && state.errors.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-red-500/10 border border-red-500 rounded-lg p-4 mb-6"
+              >
+                <div className="flex items-center">
+                  <ExclamationCircleIcon className="w-6 h-6 text-red-500 mr-3" />
+                  <div>
+                    <h4 className="text-red-500 font-semibold">Submission Failed</h4>
+                    <p className="text-red-300 text-sm">Please try again or contact us directly via social media.</p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
@@ -172,19 +206,19 @@ export default function ContactSection() {
 
               <motion.button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={state.submitting}
                 className={`w-full px-8 py-4 rounded-full font-semibold transition-all duration-200 ${
-                  isSubmitting
-                    ? 'bg-acs-black-300 text-acs-black-500 cursor-not-allowed'
+                  state.submitting
+                    ? 'bg-neutral-600 text-neutral-400 cursor-not-allowed'
                     : 'text-white shadow-lg hover:shadow-xl transform hover:scale-105'
                 }`}
-                style={!isSubmitting ? { backgroundColor: '#e11d47' } : {}}
-                whileHover={!isSubmitting ? { scale: 1.02 } : {}}
-                whileTap={!isSubmitting ? { scale: 0.98 } : {}}
+                style={!state.submitting ? { backgroundColor: '#e11d47' } : {}}
+                whileHover={!state.submitting ? { scale: 1.02 } : {}}
+                whileTap={!state.submitting ? { scale: 0.98 } : {}}
               >
-                {isSubmitting ? (
+                {state.submitting ? (
                   <div className="flex items-center justify-center">
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-acs-black-600 mr-2"></div>
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                     Sending Message...
                   </div>
                 ) : (

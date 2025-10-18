@@ -39,14 +39,14 @@ const socialLinks = [
 ]
 
 const quickLinks = [
-  { name: 'About Us', href: '/about' },
-  { name: 'Events', href: '/events' },
-  { name: 'Membership', href: '/membership' },
+  { name: 'About Us', href: '#about' },
+  { name: 'Events', href: '#events' },
+  { name: 'Membership', href: 'https://www.thestudentsunion.co.uk/organisation/africancaribbean/' },
   { name: 'Gallery', href: '/gallery' },
 ]
 
 const supportLinks = [
-  { name: 'Contact Us', href: '/contact' },
+  { name: 'Contact Us', href: '#contact' },
   { name: 'Suggestion Box', href: '/suggestions' },
   { name: 'Survey', href: '/survey' },
   { name: 'UWE Bristol', href: 'https://www.uwe.ac.uk', external: true },
@@ -228,7 +228,7 @@ export default function Footer() {
             </p>
             <div className="mt-4 md:mt-0">
               <p className="text-sm text-acs-black-500">
-                Built with ❤️ for the community
+                Built with ❤️ for the community by the community
               </p>
             </div>
           </div>

@@ -30,9 +30,24 @@ const events = [
     location: '2Q42, UWE Bristol',
     price: 'Free',
     category: 'Social',
-    status: 'upcoming',
+    status: 'past',
     imageUrl: '/poster.jpg',
-    highlights: ['Music', 'Ice Breakers', 'Free Snacks', 'Prize Draw', 'Announcements']
+    highlights: ['Music', 'Ice Breakers', 'Free Snacks', 'Prize Draw', 'Announcements'],
+    registrationUrl: 'https://chat.whatsapp.com/DkW3l3jegl4A2Xjcolz4cW'
+  },
+  {
+    id: 2,
+    title: 'ΤΛΣ PRESENT: BACK TO SCHOOL/ Y2K PARTY',
+    description: 'A fun evening of music, games, and good vibes while getting to know our community.',
+    date: new Date('2025-10-18'),
+    time: '22:30',
+    location: 'MARQUEE COCKTAIL BAR & NIGHTCLUB ',
+    price: '£6 - £10',
+    category: 'Social',
+    status: 'upcoming',
+    imageUrl: '/y2k.jpg',
+    highlights: ['Y2K Theme', 'Prizes', 'Photography', 'Music', 'All Star DJ Lineup'],
+    registrationUrl: 'https://www.fatsoma.com/r/42007117-264e-4b04-b704-acb51268579a/e/6qgw5wdh?utm_campaign=rep_ss&utm_medium=social&utm_source=dynamic'
   }
 ]
 
@@ -127,16 +142,18 @@ function EventCard({ event, index }: EventCardProps) {
           </div>
 
           {/* Action button */}
-          <button
-            className="w-full px-4 py-2.5 rounded-full text-sm font-semibold
-                     text-white"
-                     style={{ backgroundColor: '#e11d47' }}
+          <a
+            href={event.registrationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full px-4 py-2.5 rounded-full text-sm font-semibold text-white inline-block text-center hover:opacity-90 transition-opacity duration-200"
+            style={{ backgroundColor: '#e11d47' }}
           >
             <div className="flex items-center justify-center gap-2">
               <TicketIcon className="w-4 h-4" />
               Register Now
             </div>
-          </button>
+          </a>
         </div>
 
         {/* Highlights section */}
