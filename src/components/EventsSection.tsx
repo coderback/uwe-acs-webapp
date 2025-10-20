@@ -44,10 +44,24 @@ const events = [
     location: 'MARQUEE COCKTAIL BAR & NIGHTCLUB ',
     price: '£6 - £10',
     category: 'Social',
-    status: 'upcoming',
+    status: 'past',
     imageUrl: '/y2k.jpg',
     highlights: ['Y2K Theme', 'Prizes', 'Photography', 'Music', 'All Star DJ Lineup'],
     registrationUrl: 'https://www.fatsoma.com/r/42007117-264e-4b04-b704-acb51268579a/e/6qgw5wdh?utm_campaign=rep_ss&utm_medium=social&utm_source=dynamic'
+  },
+  {
+    id: 3,
+    title: 'MOVIE NIGHT: US',
+    description: 'A fun evening of music, games, and good vibes while getting to know our community.',
+    date: new Date('2025-10-24'),
+    time: '18:30',
+    location: 'ROOM 1N005, FRENCHAY CAMPUS',
+    price: 'Free - £2.50',
+    category: 'Social',
+    status: 'upcoming',
+    imageUrl: '/us_poster.jpeg',
+    highlights: ['Horror Movie', 'Snacks', 'Chill Vibes'],
+    registrationUrl: 'https://www.thestudentsunion.co.uk/events/6755/14991/'
   }
 ]
 

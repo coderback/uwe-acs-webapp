@@ -8,7 +8,7 @@ import Image from 'next/image'
 const committee = [
   {
     id: 1,
-    name: 'Dahlya A.',
+    name: 'Dahlya',
     role: 'President',
     bio: 'As the President of UWE Bristol ACS, I’m passionate about creating a community that uplifts and celebrates Black excellence on campus. My creative side comes out through henna art, content creation, and reading. My focus this year is to make ACS a space where everyone feels seen, valued, and empowered.',
     course: 'Law',
@@ -19,7 +19,7 @@ const committee = [
   },
   {
     id: 2,
-    name: 'Success IE.',
+    name: 'Success',
     role: 'Vice President',
     bio: 'As Vice President of ACS, I’m dedicated to building a welcoming and supportive environment for everyone. I enjoy painting, dancing, and unwinding with movies. My goal is to help create memorable experiences that bring our community closer together.',
     course: 'Biomedical Sciences',
@@ -63,7 +63,7 @@ const committee = [
   },
   {
     id: 6,
-    name: 'Femi Omoshuli',
+    name: 'Femi',
     role: 'Sports Officer',
     bio: 'I’m one of the ACS Sports Officers and a final-year IT & Business Management student. I’m passionate about using sports to build confidence, unity, and fun within our community. I’m also a big fan of American football and believe a good nap can solve almost anything.',
     course: 'IT & Business Management',
@@ -74,7 +74,7 @@ const committee = [
   },
   {
     id: 7,
-    name: 'Joshua Pepple',
+    name: 'Joshua',
     role: 'Treasurer',
     bio: 'As Treasurer and a final-year Mechanical Engineering student, I manage the society’s finances and help ensure everything runs smoothly behind the scenes. I’m passionate about organization, teamwork, and creativity. Outside of ACS, I enjoy anime, music, reading, and playing piano.',
     course: 'Mechanical Engineering',

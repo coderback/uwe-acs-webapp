@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import {
   LightBulbIcon,
@@ -14,6 +14,12 @@ import {
   ExclamationCircleIcon
 } from '@heroicons/react/24/outline'
 import { useForm } from '@formspree/react'
+
+const palette = {
+  red: '#E11D48',
+  green: '#16A34A',
+  black: '#0B0B0B',
+}
 
 const suggestionCategories = [
   { id: 'event', name: 'Event Ideas', icon: CalendarIcon },
@@ -59,11 +65,81 @@ export default function Suggestions() {
     }, 3000)
   }
 
+  // Enhanced gradient matching homepage
+  const heroBackground = useMemo(() =>
+    `radial-gradient(1200px 600px at 20% -10%, rgba(225,29,72,0.25), transparent 60%), radial-gradient(1000px 600px at 80% 10%, rgba(22,163,74,0.25), transparent 60%), linear-gradient(180deg, rgba(11,11,11,0.95), rgba(11,11,11,1))`
+  , [])
+
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
-      <section className="relative py-20 lg:py-32 bg-gradient-to-br from-acs-green-500 via-acs-red-500 to-acs-black-900 pattern-overlay">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative min-h-[60vh] flex items-center justify-center pattern-overlay">
+        {/* Enhanced Background matching homepage */}
+        <motion.div
+          className="absolute inset-0"
+          style={{ background: heroBackground }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1 }}
+        />
+
+        {/* Enhanced Floating Shapes matching homepage */}
+        <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+          <motion.div
+            className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full blur-3xl"
+            style={{
+              background: `radial-gradient(circle, ${palette.red}20, transparent)`,
+            }}
+            animate={{
+              x: [0, 80, 0],
+              y: [0, -50, 0],
+              scale: [1, 1.2, 1],
+              rotate: [0, 180, 360]
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.5, 1]
+            }}
+          />
+          <motion.div
+            className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full blur-3xl"
+            style={{
+              background: `radial-gradient(circle, ${palette.green}15, transparent)`,
+            }}
+            animate={{
+              x: [0, -60, 0],
+              y: [0, 60, 0],
+              scale: [1, 0.8, 1],
+              rotate: [360, 180, 0]
+            }}
+            transition={{
+              duration: 15,
+              repeat: Infinity,
+              ease: "easeInOut",
+              times: [0, 0.6, 1]
+            }}
+          />
+          <motion.div
+            className="absolute top-1/2 left-1/2 w-48 h-48 rounded-full blur-2xl"
+            style={{
+              background: `radial-gradient(circle, rgba(255,255,255,0.1), transparent)`,
+              transform: 'translate(-50%, -50%)'
+            }}
+            animate={{
+              scale: [1, 1.3, 1],
+              opacity: [0.3, 0.6, 0.3]
+            }}
+            transition={{
+              duration: 8,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <motion.div
             className="text-center text-white"
             initial={{ opacity: 0, y: 30 }}
@@ -76,10 +152,10 @@ export default function Suggestions() {
               </div>
             </div>
             <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-              <span className="bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">Suggestion</span> Box
+              <span className="bg-gradient-to-r from-white via-white to-white/90 bg-clip-text text-transparent">Suggestion</span> Box
             </h1>
-            <p className="text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-              Your voice matters! Share your ideas, feedback, and suggestions to help us 
+            <p className="text-xl lg:text-2xl text-gray-100 max-w-3xl mx-auto leading-relaxed">
+              Your voice matters! Share your ideas, feedback, and suggestions to help us
               make ACS even better for our community.
             </p>
           </motion.div>
@@ -130,7 +206,7 @@ export default function Suggestions() {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="w-16 h-16 bg-gradient-to-br from-acs-red-500 to-acs-green-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: '#e11d47' }}>
                   <item.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-4">{item.title}</h3>
@@ -142,10 +218,10 @@ export default function Suggestions() {
       </section>
 
       {/* Suggestion Form */}
-      <section className="py-20 bg-gray-900">
+      <section className="py-20" style={{backgroundColor: '#0b0b0b'}}>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            className="text-center mb-12"
+            className="text-center mb-16"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -154,13 +230,12 @@ export default function Suggestions() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
               Share Your <span className="gradient-text">Ideas</span>
             </h2>
-            <p className="text-xl text-gray-100">
+            <p className="text-xl text-gray-100 max-w-2xl mx-auto">
               Fill out the form below to submit your suggestion. You can choose to remain anonymous if you prefer.
             </p>
           </motion.div>
 
           <motion.div
-            className="bg-gray-800 rounded-2xl shadow-xl p-8"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -202,7 +277,7 @@ export default function Suggestions() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Anonymous Option */}
-              <div className="flex items-center justify-between p-4 bg-gray-900 rounded-lg">
+              <div className="flex items-center justify-between p-4 rounded-lg bg-neutral-900 border border-neutral-700">
                 <div className="flex items-center">
                   <EyeSlashIcon className="w-6 h-6 text-acs-red-500 mr-3" />
                   <div>
@@ -218,7 +293,7 @@ export default function Suggestions() {
                     onChange={handleChange}
                     className="sr-only peer"
                   />
-                  <div className="w-11 h-6 bg-acs-black-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-acs-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-acs-red-500"></div>
+                  <div className="w-11 h-6 bg-neutral-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-acs-red-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-acs-red-500"></div>
                 </label>
               </div>
 
@@ -226,7 +301,7 @@ export default function Suggestions() {
               {!formData.anonymous && (
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="name" className="block text-sm font-medium text-gray-100 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-200 mb-2">
                       Your Name *
                     </label>
                     <input
@@ -236,12 +311,12 @@ export default function Suggestions() {
                       required={!formData.anonymous}
                       value={formData.name}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-gray-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 placeholder:text-neutral-400"
                       placeholder="Your full name"
                     />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-100 mb-2">
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-200 mb-2">
                       Email Address *
                     </label>
                     <input
@@ -251,7 +326,7 @@ export default function Suggestions() {
                       required={!formData.anonymous}
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-gray-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                      className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 placeholder:text-neutral-400"
                       placeholder="your.email@example.com"
                     />
                   </div>
@@ -260,7 +335,7 @@ export default function Suggestions() {
 
               {/* Category */}
               <div>
-                <label htmlFor="category" className="block text-sm font-medium text-gray-100 mb-2">
+                <label htmlFor="category" className="block text-sm font-medium text-gray-200 mb-2">
                   Suggestion Category *
                 </label>
                 <select
@@ -269,7 +344,7 @@ export default function Suggestions() {
                   required
                   value={formData.category}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-gray-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
                 >
                   <option value="">Select a category</option>
                   {suggestionCategories.map(category => (
@@ -282,7 +357,7 @@ export default function Suggestions() {
 
               {/* Title */}
               <div>
-                <label htmlFor="title" className="block text-sm font-medium text-gray-100 mb-2">
+                <label htmlFor="title" className="block text-sm font-medium text-gray-200 mb-2">
                   Suggestion Title *
                 </label>
                 <input
@@ -292,14 +367,14 @@ export default function Suggestions() {
                   required
                   value={formData.title}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-acs-black-200 focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200"
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 placeholder:text-neutral-400"
                   placeholder="Brief title for your suggestion"
                 />
               </div>
 
               {/* Description */}
               <div>
-                <label htmlFor="description" className="block text-sm font-medium text-gray-100 mb-2">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-200 mb-2">
                   Detailed Description *
                 </label>
                 <textarea
@@ -309,7 +384,7 @@ export default function Suggestions() {
                   required
                   value={formData.description}
                   onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-500 bg-gray-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical"
+                  className="w-full px-4 py-3 rounded-lg border border-neutral-700 bg-neutral-900 text-white focus:border-acs-red-500 focus:ring-2 focus:ring-acs-red-500/20 outline-none transition-all duration-200 resize-vertical placeholder:text-neutral-400"
                   placeholder="Please provide as much detail as possible about your suggestion. Include any specific ideas, benefits, or implementation thoughts you might have."
                 ></textarea>
               </div>
@@ -385,21 +460,21 @@ export default function Suggestions() {
             ].map((story, index) => (
               <motion.div
                 key={story.title}
-                className="bg-gray-900 rounded-2xl p-8"
+                className="rounded-2xl p-8 bg-neutral-900 border border-neutral-700"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 viewport={{ once: true }}
               >
                 <div className="flex items-center justify-between mb-4">
-                  <span className="px-3 py-1 bg-acs-red-100 text-acs-red-800 rounded-full text-sm font-medium">
+                  <span className="px-3 py-1 rounded-full text-sm font-medium text-white" style={{ backgroundColor: 'rgba(225, 29, 72, 0.2)' }}>
                     {story.category}
                   </span>
-                  <LightBulbIcon className="w-6 h-6 text-yellow-500" />
+                  <LightBulbIcon className="w-6 h-6 text-yellow-400" />
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{story.title}</h3>
                 <p className="text-gray-100 mb-4 leading-relaxed">{story.description}</p>
-                <div className="flex items-center text-sm text-acs-green-600 font-semibold">
+                <div className="flex items-center text-sm font-semibold" style={{ color: '#16A34A' }}>
                   <SparklesIcon className="w-4 h-4 mr-2" />
                   Impact: {story.impact}
                 </div>
@@ -410,8 +485,13 @@ export default function Suggestions() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-br from-acs-red-500 to-acs-green-500 pattern-overlay">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative py-20 pattern-overlay">
+        <motion.div
+          className="absolute inset-0"
+          style={{ background: heroBackground }}
+        />
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -421,13 +501,14 @@ export default function Suggestions() {
             <h2 className="text-3xl lg:text-4xl font-bold text-white mb-6">
               Every Great Idea Starts with You
             </h2>
-            <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-              Don&apos;t hesitate to share your thoughts, no matter how big or small. 
+            <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
+              Don&apos;t hesitate to share your thoughts, no matter how big or small.
               Your suggestion could be the next big thing that transforms our community!
             </p>
             <motion.a
               href="#suggestion-form"
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-acs-red-500 bg-white rounded-full hover:bg-acs-black-50 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white rounded-full transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl"
+              style={{ backgroundColor: '#e11d47' }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
