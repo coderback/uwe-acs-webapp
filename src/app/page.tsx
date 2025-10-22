@@ -175,7 +175,7 @@ export default function Home() {
               >
                 <div className="flex flex-col">
                   <span className="text-4xl md:text-5xl font-extrabold tracking-tight">
-                    <span style={{ color: '#e11d47' }}>500</span>
+                    <span style={{ color: '#e11d47' }}>200</span>
                     <span className="text-white">+</span>
                   </span>
                   <span className="text-white text-base md:text-lg font-medium mt-1">Members Joined</span>
