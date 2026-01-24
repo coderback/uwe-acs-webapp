@@ -70,7 +70,7 @@ export default function Footer() {
               <Link href="/" className="flex items-center space-x-3">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-black/20">
                   <Image
-                    src="/logo.jpg"
+                    src="/logo.png"
                     alt="UWE ACS Logo"
                     fill
                     sizes="48px"

@@ -118,7 +118,7 @@ export default function Navigation() {
                 <div className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-50 blur-sm transition-opacity duration-300" style={{ backgroundColor: '#e11d47' }} />
                 <div className="relative bg-black/20 rounded-full p-1 backdrop-blur-sm">
                   <Image 
-                    src="/logo.jpg"
+                    src="/logo.png"
                     alt="UWE African Caribbean Society Logo"
                     width={48}
                     height={48}
